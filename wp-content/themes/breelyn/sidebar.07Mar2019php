@@ -1,0 +1,58 @@
+<?php //if( is_archive() ){ ?>
+<?php if( is_woocommerce() ){ ?>
+	
+<div id="woocommerce-sidebar" role="complementary">
+	<?php 
+		if( is_product_category() ){
+
+		$parentid = get_queried_object_id();
+	         
+		$args = array(
+		    'parent' => $parentid
+		);
+		 
+		$terms = get_terms( 'product_cat', $args );
+
+		//print_r($terms);
+		 
+		if ( $terms ) {		         
+		    echo '<ul class="custom-product-cats">';
+		    	echo '<h3 class="custom-product-title"><a href="' .  esc_url( get_term_link( $parentid ) ) . '">'.get_the_category_by_ID($parentid).'</a></h3>';		     
+		        foreach ( $terms as $term ) {		                         
+		            echo '<li class="custom-product-cat-child">';		                 
+		                echo '<a href="' .  esc_url( get_term_link( $term ) ) . '" class="' . $term->slug . '">';
+		                    echo $term->name;
+		                echo '</a>';		                                                                     
+		            echo '</li>';	                                                                     
+		 		}		     
+		    echo '</ul>';		 
+		}
+	}
+	?>
+	
+	<?php if ( is_active_sidebar( 'shop-sidebar' ) ) : ?>
+		<div id="primary" class="widget-area">
+			<ul class="xoxo">
+				<?php dynamic_sidebar( 'shop-sidebar' ); ?>
+			</ul>
+		</div>
+	<?php endif; ?>
+</div>
+
+<?php } elseif( is_singular('product') ){ ?>
+
+<?php //no sidebar for single product page ?>
+
+<?php }else{ ?>
+
+<div id="sidebar" role="complementary">
+	<?php if ( is_active_sidebar( 'blog-sidebar' ) ) : ?>
+		<div id="primary" class="widget-area">
+			<ul class="xoxo">
+				<?php dynamic_sidebar( 'blog-sidebar' ); ?>
+			</ul>
+		</div>
+	<?php endif; ?>
+</div>
+
+<?php } ?>

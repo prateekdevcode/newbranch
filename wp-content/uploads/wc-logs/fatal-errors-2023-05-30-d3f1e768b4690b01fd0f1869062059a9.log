@@ -1,0 +1,19 @@
+2023-05-30T18:28:40+00:00 CRITICAL Uncaught Error: Call to undefined function wc_product_documents() in C:\xampp\htdocs\wordprac\wp-content\themes\Child\functions.php:85
+Stack trace:
+#0 C:\xampp\htdocs\wordprac\wp-settings.php(555): include()
+#1 C:\xampp\htdocs\wordprac\wp-config.php(92): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wordprac\wp-load.php(50): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\wordprac\wp-admin\admin.php(34): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\wordprac\wp-admin\theme-editor.php(10): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\wordprac\wp-content\themes\Child\functions.php on line 85
+
+2023-05-30T18:28:41+00:00 CRITICAL Uncaught Error: Call to undefined function wc_product_documents() in C:\xampp\htdocs\wordprac\wp-content\themes\Child\functions.php:85
+Stack trace:
+#0 C:\xampp\htdocs\wordprac\wp-settings.php(555): include()
+#1 C:\xampp\htdocs\wordprac\wp-config.php(92): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wordprac\wp-load.php(50): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\wordprac\wp-admin\admin-ajax.php(22): require_once('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordprac\wp-content\themes\Child\functions.php on line 85
+

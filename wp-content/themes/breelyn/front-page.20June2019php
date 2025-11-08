@@ -1,0 +1,206 @@
+<?php
+/**
+ * The template for displaying pages
+ *
+ */
+
+get_header(); ?>
+
+<section id="banner" class="banner-row">
+  <div id="hero-banner" class="carousel slide" data-ride="carousel">    
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <?php 
+        $banner_arg = array(
+            'post_type' => 'home-banner'
+         );
+         $banner_query = new WP_Query( $banner_arg );
+         while ( $banner_query->have_posts() ) { $banner_query->the_post();
+      ?>
+      <div class="item">
+        <?php if ( has_post_thumbnail() ) : ?>
+        <img class="img-responsive" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
+        <?php endif; ?>
+      </div>
+      <?php } wp_reset_postdata(); ?>
+
+    </div>
+
+    <script>
+      jQuery(document).ready(function(){
+        jQuery('#banner .carousel-inner .item:first-child').addClass('active');
+      });
+    </script>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#hero-banner" data-slide="prev">
+    <span class="glyphicon fa fa-angle-left"></span>  
+    </a>
+    <a class="right carousel-control" href="#hero-banner" data-slide="next">
+    <span class="glyphicon fa fa-angle-right"></span>  
+    </a>
+  </div>
+</section>
+
+
+<section id="testimonial" class="testimonial-row">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testi-heding">
+          <h2>WHAT OUR CUSTOMERS ARE SAYING</h2> 
+        </div> 
+      </div>
+ 
+      <div class="col-md-8">
+        <div class="testi-content-col">
+          <div id="testi-slider" class="owl-carousel">
+            
+            <?php 
+              $testimonials = new WP_Query( 
+                array(
+                  'post_type' => 'client-testimonials',
+                  'posts_per_page' => -1,
+                )
+              );
+              while ($testimonials-> have_posts()) : $testimonials-> the_post(); 
+            ?>
+              <div class="item">
+                <h3><?php the_title(); ?></h3>
+                <?php the_content(); ?>
+              </div>
+            <?php endwhile; ?>
+
+          </div>
+        </div> 
+      </div>
+ 
+    </div>
+  </div>   
+</section>
+
+<?php 
+  /*
+  * shortcode for new or recent products
+  */
+  echo do_shortcode('[sb_recent_products product_count="5"]'); 
+?>
+
+<section class="full-col" style="background:url('<?php echo get_field('home_offer_image'); ?>') no-repeat;">
+ <div class="container">
+<div class="row">
+ <div class="col-md-12">
+   <h1> <?php echo get_field('home_offer_percentage'); ?> </h1>
+   <?php echo get_field('home_offer_description'); ?>
+   <div class="custom-btn"> <a href="<?php echo get_field('home_offer_button_link'); ?>"> <?php echo get_field('home_offer_button_text'); ?> </a> </div>
+ </div>
+</div>
+ </div> 
+</section>
+
+
+<?php
+/*
+* shortcode for featured products
+*/
+  echo do_shortcode('[sb_featured_products product_count="5"]');
+?>
+
+<?php 
+  $blog_arg = array(
+      'post_type' => 'post',
+      'posts_per_page' => 3,
+      //'orderby' => 'rand',
+      'order' => 'DESC',     
+   );
+   $blog_query = new WP_Query( $blog_arg );
+
+   if ( $blog_query->have_posts() ) {
+?>
+
+<section id="blog" class="blog-row custom-row">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="catagories-col">
+          <div class="custom-heading">     
+            <h2> <span> Help U Journal </span> </h2></div>
+            <div class="blog-box">
+              
+              <?php while ( $blog_query->have_posts() ) { $blog_query->the_post(); ?>
+              <div class="col-md-4">
+                <div class="blog-col">
+                  <?php if ( has_post_thumbnail() ) : ?>  
+                  <div class="blog-img">
+                    <img class="img-responsive" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
+                  </div>
+                  <?php endif; ?>
+                  <div class="blog-details">
+                    <h4> <a href="<?php the_permalink(); ?>"> <?php echo substr(get_the_title(), 0, 50).'...'; ?> </a> </h4>
+                    <h5> By <?php the_author(); ?> on <?php echo get_the_date('jS F, Y g:i A'); ?> </h5>
+                    <div class="blog-comment clearfix">
+                      <div class="comments-left">
+                        <span> <i class="fa fa-comment-o"></i> </span> <?php if( get_comments_number() == 1 ){ echo get_comments_number().' Comment'; }elseif( get_comments_number() > 1 ){ echo get_comments_number().' Comments'; }else { echo 'No Comments'; } ?>
+                      </div>
+                      <div class="wishlist-right">
+                        <!-- <span> <a href="#"> <i class="fa fa-heart-o"></i> </a> </span> -->
+                        <?php if(function_exists('wp_ulike')) wp_ulike('get'); ?>
+                      </div>
+                    </div>
+                    <?php the_excerpt(); ?>
+                    <div class="blog-btn">
+                      <a href="<?php the_permalink(); ?>"> Read More </a>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- blog col -->
+            <?php } wp_reset_postdata(); ?>
+
+            </div>
+        </div> 
+      </div>   
+    </div>
+  </div>   
+</section>
+<?php } ?>
+
+
+<?php
+  //About Us page ID : 98
+  $post_id = 98;
+  $queried_post = get_post($post_id);
+  //echo $queried_post->post_title;
+  $content = $queried_post->post_content;
+  $content = apply_filters('the_content', $content);
+  //all paragraphs
+  //$content = str_replace(']]>', ']]&gt;', $content);
+  //two paragraphs
+  $content = substr( $content, 0, strpos( $content, '</p>' ) + 280 );
+  //echo $content;
+  $featured_img_url = get_the_post_thumbnail_url($post_id,'full');
+
+  if( $post_id ){
+?>
+<section id="about" class="about-row" style="background:url('<?php echo get_stylesheet_directory_uri(); ?>/images/about-bg.jpg') no-repeat;">
+ <div class="container">
+<div class="row">
+ <div class="col-md-5">
+  <div class="about-img">
+   <img class="img-responsive" src="<?php echo $featured_img_url; ?>" alt="<?php echo $queried_post->post_title; ?>">
+  </div> 
+ </div>
+ <div class="col-md-7">
+  <div class="about-content">
+    <div class="about-heading">      
+      <h2> <?php echo $queried_post->post_title; ?> </h2>
+    </div>
+    <?php echo $content; ?>   
+   <div class="custom-btn"> <a href="<?php echo get_the_permalink($post_id); ?>">More</a> </div>
+  </div> 
+ </div>
+</div>
+ </div> 
+</section>
+<?php } ?>
+
+<?php get_footer(); ?>

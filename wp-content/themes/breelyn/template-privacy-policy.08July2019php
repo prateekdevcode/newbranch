@@ -1,0 +1,125 @@
+<?php
+/**
+ * The template for displaying full width pages.
+ *
+ * Template Name: Privacy policy
+ *
+ * @package storefront
+ */
+
+get_header(); ?>
+
+	<section id="descliamer" class="common-padding">
+		<div class="container">
+			<div class="title-section custom-heading">
+				<h1><span><?php wp_title(''); ?></span></h1>
+			</div>
+			<div class="desc-content clearfix">
+				<div class="col-md-12 center">
+					<p>Breelyn Uniforms respects your privacy fully. We undertake to take all due care with any information which you may provide to us when accessing our website. We will knowingly only use the information given to enhance the shopping experience for our customers, resulting in a more personalized service</p>
+					
+					<p>Any personal information that you submit will be used by us simply to process your orders and to advise you of special offers and new products.</p>
+					
+					<p>We may release account information when we believe, in good faith, that such release is reasonably necessary to (i) comply with the law (ii) enforce or apply our agreement or (iii) protect the rights, safety or property of Breelyn Uniforms, our users, or others.</p>
+					
+					<p>However we do not warrant and cannot ensure the security of any information which you may provide to us. Information you transmit to us is entirely at your own risk although we undertake to take reasonable steps to preserve such information in a secure manner.</p>
+					
+					
+				</div>
+
+				<?php /* 
+					<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Who we are</h3>
+					</div>
+					<div class="inner-content">
+						<p>Our website address is: <a href="http://corporateuniform.net.au">http://corporateuniform.net.au</a>.</p>
+						
+					</div>
+				</div>
+
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>What personal data we collect and why we collect it</h3>
+					</div>
+					<div class="inner-content">
+						<h5 class="subHead">Comments</h5>
+						<p>When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor’s IP address and browser user agent string to help spam detection.</p>
+
+						<p>An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: https://automattic.com/privacy/. After approval of your comment, your profile picture is visible to the public in the context of your comment.</p>
+
+						<h5 class="subHead">Media</h5>
+						<p>If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website.</p>
+
+						<h5 class="subHead">Cookies</h5>
+						<p>If you leave a comment on our site you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year.</p>
+
+						<p>If you have an account and you log in to this site, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser.</p>
+
+						<p>When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select “Remember Me”, your login will persist for two weeks. If you log out of your account, the login cookies will be removed.</p>
+
+						<p>If you edit or publish an article, an additional cookie will be saved in your browser. This cookie includes no personal data and simply indicates the post ID of the article you just edited. It expires after 1 day.</p>
+						<h5 class="subHead">Embedded Content From Other Websites</h5>
+						<p>rticles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website.</p>
+
+						<p>These websites may collect data about you, use cookies, embed additional third-party tracking, and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website.</p>
+					</div>
+				</div>
+
+
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Who we share your data with How long we retain your data</h3>
+					</div>
+					<div class="inner-content">
+						<p>If you leave a comment, the comment and its metadata are retained indefinitely. This is so we can recognize and approve any follow-up comments automatically instead of holding them in a moderation queue.For users that register on our website (if any), we also store the personal information they provide in their user profile. All users can see, edit, or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>What rights you have over your data</h3>
+					</div>
+					<div class="inner-content">
+						<p>If you have an account on this site, or have left comments, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal, or security purposes.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Where we send your data</h3>
+					</div>
+					<div class="inner-content">
+						<p>Visitor comments may be checked through an automated spam detection service.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Your contact information</h3>
+					</div>
+					<div class="inner-content">						
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Additional information</h3>
+					</div>
+					<div class="inner-content smallSub">		
+						<h5 class="subHead">How We Protect Your Data</h5>
+						<h5 class="subHead">What Data Breach Procedures We Have In Place</h5>
+						<h5 class="subHead">What Third Parties We Receive Data From</h5>
+						<h5 class="subHead">What Automated Decision Making And/Or Profiling We Do With User Data</h5>
+						<h5 class="subHead">Industry Regulatory Disclosure Requirements</h5>
+					</div>
+				</div>
+				*/ ?>
+
+			</div>
+		</div>
+	</section>
+
+<?php
+get_footer();

@@ -1,0 +1,226 @@
+table#calculator-table{
+	width: 100%;
+	min-width: 600px;
+	margin: 27px 0 20px;
+	border-bottom: 1px solid;
+	font-size: 14px;
+}
+
+#calculator-block input[type=text],
+#calculator-block input[type=number],
+#calculator-block select{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 500px;
+	margin: 5px 0;
+	padding: 8px;
+	background-color: #fff;
+    border: 1px solid #bbb;
+    color: #4e4e4e;
+}
+
+#calculator-block p.message{
+	color: #f51717;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+#calculator-button,
+#calculator-recommended button[type=button]{
+	width: 100%;
+	max-width: 280px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 8px;
+	margin: 5px 0;
+	cursor: pointer;
+	background: #008c80;
+	border: 1px solid #008c80;
+	color: #fff;
+	text-transform: uppercase;
+	-webkit-transition: all 0.2s ease-out 0s;
+	-moz-transition: all 0.2s ease-out 0s;
+	-o-transition: all 0.2s ease-out 0s;
+}
+
+#calculator-button:hover,
+#calculator-recommended button[type=button]{
+	background: #444;
+	border-color: #444;
+	-webkit-transition: all 0.2s ease-out 0s;
+	-moz-transition: all 0.2s ease-out 0s;
+	-o-transition: all 0.2s ease-out 0s;
+}
+
+@keyframes spinner-border {
+	to { transform: rotate(360deg); }
+} 
+.spinner-border{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	border: .2em solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	-webkit-animation: spinner-border .75s linear infinite;
+	animation: spinner-border .75s linear infinite;
+}
+
+p#calculator-result {
+    padding: 10px 0;
+}
+
+.calculator-col{
+	float: left;
+}
+
+.calculator-col.result{
+	position: relative;
+	width: 83%;
+	word-wrap: break-word;
+    word-break: break-word;
+}
+
+.calculator-col.calculator-form{
+	width: 15%;
+	margin-right: 2%;
+}
+
+#calculator-table th{ text-align:center }
+
+#calculator-table,
+#calculator-table td,
+#calculator-table th{
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+#calculator-table td {
+    min-width: 30px;
+    padding: 4px 2px!important;
+    text-align: center;
+	font-size: 12px;
+}
+
+#calculator-table tbody tr td:first-child{ text-align:left; padding: 4px!important;}
+
+.calculator-warning {
+    color: #ff0000;
+	display: none;
+    font-weight: 600;
+}
+#calculator-recommended {
+	display: none;
+}
+
+@media only screen and (max-width: 1036px){
+	.cal-col{
+		float: none;
+	}
+	.cal-col.calculator-form{
+		width: 200px;
+		margin: 0 auto;
+	}
+	.cal-col.result{
+		width: 100%;
+		overflow: auto;
+	}
+}
+
+div#calculator-recommended h3 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+div#calculator-recommended {
+    border: 1px solid #ccc;
+    padding: 20px 40px;
+}
+table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+table tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+table#calculator-table tr th {
+    background: #007C8B;
+    color: #fff;
+}
+div#recommended-items ul li {
+    display: inline-block;
+    padding: 5px 17px;
+    height: 215px;
+    margin-bottom: 20px;
+}
+#recommended-items span.et_shop_image {
+    height: 100%;
+}
+#recommended-items span.et_shop_image img {
+    height: 100%;
+}
+table tr:nth-child(odd) {
+    color: #949494;
+}
+table tr:nth-child(even) {
+    color: #949494;
+}
+div#recommended-items ul li a h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    max-height: 50px;
+    line-height: 23px;
+    margin-bottom: 15px;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+a.Power.Storage.Solutions {
+    font-weight: 900;
+}
+a.Battery.CalculatorPower.Storage.Solutions {
+    font-weight: 900;
+}
+.calculator-col.calculator-form {
+    line-height: 20px !important;
+}
+@media screen and (max-width: 1025px) {
+   .calculator-col.result {
+     overflow: auto;
+}
+table#calculator-table {
+    width: 100%;
+    min-width: 800px;
+}
+}
+@media screen and (max-width: 600px) {
+  .calculator-col.calculator-form {
+    float: none;
+    width: 85%;
+    margin: 0 auto;
+}
+.calculator-col.result {
+    width: 100%;
+    float: none;
+    overflow: auto;
+}
+table#calculator-table {
+    width: 100%;
+    min-width: 800px;
+}
+div#recommended-items ul li {
+    float: none;
+    width: 100%;
+    height: auto;
+}
+div#calculator-recommended h3 {
+    font-size: 19px;
+}
+}

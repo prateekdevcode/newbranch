@@ -1,0 +1,2203 @@
+	function setFont(font){
+		//alert('font front');
+		var activeObject = canvas.getActiveObject();
+		if (activeObject && activeObject.type === 'text') {
+			activeObject.fontFamily = font;
+			canvas.renderAll();
+		}
+		jQuery('.custom_front_name_style input').val(font);
+		
+		// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+	}
+	function setFontback(font){
+		//alert('font back');
+		var activeObject = canvas1.getActiveObject();
+		if (activeObject && activeObject.type === 'text') {
+			activeObject.fontFamily = font;
+			canvas1.renderAll();
+		}
+		jQuery('.custom_back_name_style input').val(font);
+		// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+	}
+jQuery(document).ready(function(){
+	
+	// SIZE AND QUANTITY SECTION CALCULETION
+	jQuery( "#finalization" ).on("click",function(){
+		jQuery( "#finalization_section" ).css('display','block');
+			setTimeout(function(){ 
+			
+			jQuery('.selected_category').text(jQuery('.variations #category').val());
+			jQuery('.selected_design').text(jQuery('.variations #design').val());
+			
+			if(jQuery('.custom_main_body input').val() !=""){ jQuery('.selected_mainbody').text("Main Body : "+jQuery('.custom_main_body input').val()); }
+			if(jQuery('.custom_body_upper input').val() !=""){ jQuery('.selected_body_upper').text("Body Upper Color  : "+jQuery('.custom_body_upper input').val()); }
+			if(jQuery('.custom_body_lower input').val() !=""){ jQuery('.selected_body_lower').text("Body Lower Color  : "+jQuery('.custom_body_lower input').val()); }
+			if(jQuery('.custom_side_body input').val() !=""){ jQuery('.selected_side_body').text("Side Body Color  : "+jQuery('.custom_side_body input').val()); }
+			if(jQuery('.custom_zigzag1 input').val() !=""){ jQuery('.selected_zigzag1').text("Zigzag 1 Color  : "+jQuery('.custom_zigzag1 input').val()); }
+			if(jQuery('.custom_zigzag2 input').val() !=""){ jQuery('.selected_zigzag2').text("Zigzag 2 Color : "+jQuery('.custom_zigzag2 input').val());}
+			if(jQuery('.custom_zigzag3 input').val() !=""){ jQuery('.selected_zigzag3').text("Zigzag 3 Color : "+jQuery('.custom_zigzag3 input').val());}
+			if(jQuery('.custom_sleeve_by_color input').val() !=""){ jQuery('.selected_sleeve_by_color').text("sleeve Color : "+jQuery('.custom_sleeve_by_color input').val());}
+			if(jQuery('.custom_collar input').val() !=""){ jQuery('.selected_collar').text("Collar  Color : "+jQuery('.custom_collar input').val());}
+			if(jQuery('.custom_collar_by_color input').val() !=""){ jQuery('.selected_collar_by_color').text("Collar by Color : "+jQuery('.custom_collar_by_color input').val());}
+			if(jQuery('.custom_plaket_inner input').val() !=""){ jQuery('.selected_plaket_front').text("Plaket Front Color : "+jQuery('.custom_plaket_inner input').val());}
+			if(jQuery('.custom_button input').val() !=""){ jQuery('.selected_button').text("Button Color : "+jQuery('.custom_button input').val());}
+			if(jQuery('.custom_string input').val() !=""){ jQuery('.selected_string').text("String Color : " +jQuery('.custom_string input').val());}
+			if(jQuery('.custom_elastic input').val() !=""){ jQuery('.selected_elastic').text("Elastic Color : "+jQuery('.custom_elastic input').val());}
+			
+			
+			var  font_log = jQuery('.custom_user-file input').val();
+			if(font_log !=""){								
+				jQuery('.selected_logos_for_front').html('Front Logo : '+set_img(font_log));
+			}
+			var  back_log = jQuery('.custom_user-file-back input').val();
+			if(back_log !=""){
+				jQuery('.selected_logos_for_back').html('Back Logo : '+set_img(back_log));
+			}
+			var  left_sleave_log = jQuery('.custom_user-file-lsleeve input').val();
+			if(left_sleave_log !=""){
+				jQuery('.selected_logos_for_left_sleeve').html('Left Sleeve Logo : '+set_img(left_sleave_log));
+			}
+			var  right_sleave_log = jQuery('.custom_user-file-rsleeve input').val();
+			if(right_sleave_log !=""){
+				jQuery('.selected_logos_for_right_sleeve').html('Right Sleeve Logo : '+set_img(right_sleave_log));
+			}
+
+			if(jQuery('.custom_front_name input').val() !=""){ jQuery('.selected_front_text').text("Front Text : "+jQuery('.custom_front_name input').val()); }
+			if(jQuery('.custom_front_name_color input').val() !=""){ jQuery('.selected_front_color').text("Front Text Color : "+jQuery('.custom_front_name_color input').val()); }
+			if(jQuery('.custom_front_name_style input').val() !=""){ jQuery('.selected_front_style').text("Front Text Style : "+jQuery('.custom_front_name_style input').val()); }
+			if(jQuery('.custom_back_name input').val() !=""){ jQuery('.selected_back_text').text("Back Text : "+jQuery('.custom_back_name input').val()); }
+			if(jQuery('.custom_back_name_color input').val() !=""){ jQuery('.selected_back_text_color').text("Back Text Color : "+jQuery('.custom_back_name_color input').val()); }
+			if(jQuery('.custom_back_name_style input').val() !=""){ jQuery('.selected_back_font_style').text("Back Text Style : "+jQuery('.custom_back_name_style input').val()); }
+			if(jQuery('.custom_fabric_type input').val() !=""){ jQuery('.selected_fabric_type').text(jQuery('.custom_fabric_type input').val()); }
+			if(jQuery('.custom_size_quantity input').val() !=""){ jQuery('.selected_adult_size').text(jQuery('.custom_size_quantity input').val()); }
+			if(jQuery('.custom_lady_size_quantity input').val() !=""){ jQuery('.selected_lady_size').text(jQuery('.custom_lady_size_quantity input').val()); }
+			if(jQuery('.custom_youth_size_quantity input').val() !=""){ jQuery('.selected_youth_size').text(jQuery('.custom_youth_size_quantity input').val()); }
+			
+			
+			jQuery('.selected_total_quantity').text(jQuery('.quantity input.qty ').val());
+			
+			var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+			jQuery('.selected_total_price').text(data_price)
+			jQuery( "#finalization_section" ).css('display','none');
+
+			}, 1500);
+	});
+
+	function set_img(font_log){
+		var imgs = font_log.split(',');
+		var html = '';
+		for(i=0;i<imgs.length;i++){
+			html = html + '<img src="'+ imgs[i] +'">';
+		}
+
+		return html;
+	}
+				
+	
+	// SIZE AND qUANTITY SECTION CALCULETION
+		var params_adult = {};
+		jQuery( ".input_size_quantity" ).on("click keyup",function(){
+			var size_type = jQuery(this).data("id");
+			var size_Quantity = jQuery(this).val();
+			params_adult[size_type] = size_Quantity;			
+			
+			//Add Quantity_selection
+			var total_adult_quantity = 0;
+			var adult_quantity_info ='';
+			
+			var arrayLength = params_adult.length;
+			var in_count =1;
+			for(var index in params_adult) {				
+				 if(params_adult[index]!=0){
+					 if(in_count ==1){
+						total_adult_quantity =  parseInt(params_adult[index]);
+						adult_quantity_info = index+':'+params_adult[index];
+					 }else {
+						total_adult_quantity = parseInt(total_adult_quantity )+parseInt( params_adult[index]);
+						adult_quantity_info = adult_quantity_info+',' + index+':'+params_adult[index];
+					 }
+					in_count++;
+				 }
+				 jQuery('.custom_size_quantity input').val(adult_quantity_info);
+				 jQuery('#size_quantity_int').val(total_adult_quantity);			 
+				 				
+			}
+			//cart_total_quantity
+			var adult_quantity = jQuery('#size_quantity_int').val();
+			var lady_quantity = jQuery('#ladysize_quantity_int').val();
+			var youth_quantity = jQuery('#youthsize_quantity_int').val();
+			jQuery('.quantity input.qty').val(parseInt(adult_quantity)+parseInt(lady_quantity)+parseInt(youth_quantity));
+			
+			// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+			
+		});
+		
+		// Lady Size Quantity SECTION CALCULETION
+		var params_lady = {};
+		jQuery( ".input_ladysize_quantity" ).on("click keyup",function(){
+			var size_type_lady = jQuery(this).data("id");
+			var size_Quantity_lady = jQuery(this).val();
+			params_lady[size_type_lady] = size_Quantity_lady;			
+			
+			//Add Quantity_selection
+			var total_adult_quantity_lady = 0;
+			var adult_quantity_info_lady ='';
+			
+			var arrayLength_lady = params_lady.length;
+			var in_count_lady =1;
+			for(var index in params_lady) {				
+				 if(params_lady[index]!=0){
+					 if(in_count_lady ==1){
+						total_adult_quantity_lady =  parseInt(params_lady[index]);
+						adult_quantity_info_lady = index+':'+params_lady[index];
+					 }else {
+						total_adult_quantity_lady = parseInt(total_adult_quantity_lady )+parseInt( params_lady[index]);
+						adult_quantity_info_lady = adult_quantity_info_lady+',' + index+':'+params_lady[index];
+					 }
+					in_count_lady++;
+				 }
+				 jQuery('.custom_lady_size_quantity input').val(adult_quantity_info_lady);
+				 jQuery('#ladysize_quantity_int').val(total_adult_quantity_lady);			 
+				 				
+			}
+				//cart_total_quantity
+			var adult_quantity = jQuery('#size_quantity_int').val();
+			var lady_quantity = jQuery('#ladysize_quantity_int').val();
+			var youth_quantity = jQuery('#youthsize_quantity_int').val();
+			jQuery('.quantity input.qty').val(parseInt(adult_quantity)+parseInt(lady_quantity)+parseInt(youth_quantity));
+			// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});
+		
+		// Youth Size Quantity SECTION CALCULETION
+		var params_youth = {};
+		jQuery( ".input_youthsize_quantity" ).on("click keyup",function(){
+			var size_type_youth = jQuery(this).data("id");
+			var size_Quantity_youth = jQuery(this).val();
+			params_youth[size_type_youth] = size_Quantity_youth;						
+			//Add Quantity_selection
+			var total_adult_quantity_youth = 0;
+			var adult_quantity_info_youth ='';
+			
+			var arrayLength_youth = params_youth.length;
+			var in_count_youth =1;
+			for(var index in params_youth) {				
+				 if(params_youth[index]!=0){
+					 if(in_count_youth ==1){
+						total_adult_quantity_youth =  parseInt(params_youth[index]);
+						adult_quantity_info_youth = index+':'+params_youth[index];
+					 }else {
+						total_adult_quantity_youth = parseInt(total_adult_quantity_youth )+parseInt( params_youth[index]);
+						adult_quantity_info_youth = adult_quantity_info_youth+',' + index+':'+params_youth[index];
+					 }
+					in_count_youth++;
+				 }
+				 jQuery('.custom_youth_size_quantity input').val(adult_quantity_info_youth);
+				 jQuery('#youthsize_quantity_int').val(total_adult_quantity_youth);			 
+				 				
+			}
+			//cart_total_quantity
+				//cart_total_quantity
+			var adult_quantity = jQuery('#size_quantity_int').val();
+			var lady_quantity = jQuery('#ladysize_quantity_int').val();
+			var youth_quantity = jQuery('#youthsize_quantity_int').val();
+			jQuery('.quantity input.qty').val(parseInt(adult_quantity)+parseInt(lady_quantity)+parseInt(youth_quantity));
+			// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});
+	
+		
+	/*load style on click basedon category/products*/
+	var cat_name;
+	jQuery( ".garments-list .eachcat" ).on("click",function(){	
+		jQuery(".variations #category").val(jQuery(this).attr("data-cat-name")).focus().focusout();
+		jQuery('.inner-loader').css('display','block');
+		if(!jQuery(this).hasClass('active')){
+			jQuery('.target-images').empty();
+		}	
+		//canvas.setOverlayImage();
+		//canvas1.setOverlayImage();
+		canvas.getObjects().forEach(function(e){
+				if(e.name == 'leftImg'){
+					e.remove();
+				}
+			});
+		canvas1.getObjects().forEach(function(e){
+			if(e.name == 'leftImg'){
+				e.remove();
+			}
+		});
+		canvas.overlayImage = null;
+		canvas1.overlayImage = null;
+		canvas.renderAll.bind(canvas);
+		//alert()
+		var cat_slug = jQuery(this).attr('data-slug');
+		/*load shadow images on click on category products*/
+		jQuery( ".baseshadow1" ).remove();
+		jQuery( ".baseshadow2" ).remove();
+		jQuery( ".baseshadow3" ).remove();
+		jQuery( ".baseshadow4" ).remove();
+		jQuery( ".midimg" ).remove();
+		cat_name = jQuery(this).attr('data-slug');
+		jQuery('.selected_name').val(cat_name);
+		var shadow='';
+		shadow +='<img style="position: absolute;z-index: 5;" class="baseshadow1 shadow fluid index5" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/1_1.png" alt="Shadow"><img style="position: absolute;z-index: 1;" class="baseshadow2 shadow fluid index1" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/2_2.png" alt="Ribbons"><img style="position: absolute;z-index: 3;" class="baseshadow3 shadow fluid index3" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3.png" alt="Lines"><img style="position: absolute;z-index: 1;" class="baseshadow4 shadow fluid index1" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/4_4.png" alt="Lines 2">';
+		jQuery( ".main_customize_area" ).prepend(shadow);
+		var html = '';
+		var i;
+		jQuery.ajax({
+			url : '<?php echo admin_url("admin-ajax.php"); ?>',
+			data :{action:'getselectproductstyle', cat_slug : cat_slug}, 
+			type: 'post',
+			success : function( result ) {
+				var myJSON = jQuery.parseJSON(result);
+				var c=1;
+				for (i = 0; i < myJSON.length; i++) {
+					html += '<li data-imagename="'+myJSON[i]['data-imagename']+'" data-pid="'+myJSON[i]['products-id']+'" data-price="'+myJSON[i]['data-price']+'" data-layer="'+myJSON[i]['data-layer']+'" data-layers-name="'+myJSON[i]['default']+'" class="design"><a href="#" data-val="'+c+'"><img src="'+myJSON[i]['image']+'" alt="#"></a></li>';
+					c++;
+				}
+				jQuery('.design-list').html(html);
+				jQuery('.inner-loader').fadeOut(500);
+			}
+		});
+		myfuntion();
+		
+		// new adition  for fabrication on 26.12.2018
+		var  cat_type = jQuery(this).attr("data-cat-name");
+		if(cat_type=='Hoodie'){
+			jQuery( ".fabric_polo_type" ).hide();
+			jQuery( ".fabric_hoodie_type" ).show();
+			jQuery( ".fabric_round_nack_type" ).hide();
+			jQuery(".custom_fabric_type input").val(jQuery("#fabric_hoodie").val());
+		}
+		if(cat_type=='Polo'){
+			jQuery( ".fabric_polo_type" ).show();
+			jQuery( ".fabric_hoodie_type" ).hide();
+			jQuery( ".fabric_round_nack_type" ).hide();
+			jQuery(".custom_fabric_type input").val(jQuery("#fabric_polo").val());
+		
+		}
+		if(cat_type=='Round neck'){
+			jQuery( ".fabric_polo_type" ).hide();
+			jQuery( ".fabric_hoodie_type" ).hide();
+			jQuery( ".fabric_round_nack_type" ).show();
+			jQuery(".custom_fabric_type input").val(jQuery("#fabric_round_nack").val());		
+		}	
+		// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+	});
+	function myfuntion(){
+		var i=0;
+		jQuery(document).find('#item img').each(function(){
+			var imgSrc=jQuery(this).attr('src');
+			localStorage.setItem("shadow_" + i, imgSrc);
+			i++;
+		});
+	}
+	// for particular types febric section
+	jQuery(".fabric_type_selcet").on("change", function(){	
+		var fabrictype = this.value;
+		jQuery(".custom_fabric_type input").val(fabrictype);
+		// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+	
+	});
+	////single_add_to_cart_button	
+	
+	/*load color pallet dynamically*/	
+	jQuery(".design-list").on("click","li", function(){	
+		jQuery(".variations #design").val(jQuery(this).attr("data-imagename"));
+		var data_layer = jQuery(this).attr('data-layer');
+		var data_layer_name = jQuery(this).attr('data-layers-name');
+		var data_layer_name_array = data_layer_name.split(',');
+		var data_price = jQuery(this).attr('data-price');
+		var pid = jQuery(this).attr('data-pid');
+		jQuery(".product_id").val(pid);
+		var color_pic ='';
+		for (var i =1; i <= data_layer; i++)
+		{
+			var custom_field_name = 'custom_'+data_layer_name_array[i-1].toLowerCase().split(' ').join('_');
+			color_pic +='<div class="all-color-data"><span class="color-picker-text">'+data_layer_name_array[i-1]+'</span><input type="text" id="cp'+i+'_getcolor" value="" class="form-control grabdata" placeholder="selected color"><div data-field-name="'+custom_field_name+'" class="colorPicker colorPickSelector'+i+'"></div></div>';
+		}
+		jQuery('.cuscolorpicker').html(color_pic);
+		for (var i =1; i <= data_layer; i++)
+		{
+			var custom_field_name = 'custom_'+data_layer_name_array[i-1].toLowerCase().split(' ').join('_');
+			jQuery('.cuscolorpicker').append('<script>jQuery(".colorPickSelector'+i+'").colorPick({"allowRecent": false,"initialColor": "#ffffff","onColorSelected":function() { var color =this.color;jQuery("#cp'+i+'_getcolor").val(color);jQuery(".'+custom_field_name+' .custom-options").val(color).focus().focusout();this.element.css({"backgroundColor": this.color, "color": this.color}); jQuery(".target-image'+i+'").each(function () {this.src = changeIconColor(this, color, "1");});}});<\/script>');
+		}
+		var imagename = jQuery(this).attr('data-imagename');
+		var flder_name = imagename.toLowerCase();
+		flder_name = flder_name.replace(/ /g, "_");
+		var pro_name = jQuery('.selected_name').val();
+		var targt_html = '';
+		for (var j =1; j <= data_layer; j++)
+		{
+			targt_html += '<img style="position: absolute;z-index: 1;" class="fluid shadow index1 target-image'+j+'" id="layer40.0" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+pro_name+'/'+flder_name+'/target_images/'+j+'.png">';
+		}
+		jQuery('.target-images').html(targt_html);
+		
+		//comment on 29.12.2018 by Aryan
+		//$('.custom_price').html(data_price);
+		//$('.custom_price').attr('data-total',data_price);
+		
+		
+		//arif
+		var fst_var = jQuery(".variations #category").val();
+		var snd_var = jQuery(".variations #design").val();
+		
+		jQuery.ajax({
+			url : '<?php echo admin_url("admin-ajax.php"); ?>',
+			data :{action:'get_varietionidof_product', fst_var : fst_var, snd_var : snd_var,product_id : '<?php echo get_the_ID();?>'}, 
+			type: 'post',
+			success : function( result ) {			
+				jQuery('.variation_id').val(result.v_pro_id);
+				
+				// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+	});	
+	function applyFilter(index, filter) {
+	    var obj = canvas.getActiveObject();
+		obj.filters[index] = filter;
+	    obj.applyFilters(canvas.renderAll.bind(canvas));
+	    canvas.renderAll();
+	}
+	function applyFilterBack(index, filter) {
+	    var obj = canvas1.getActiveObject();
+		obj.filters[index] = filter;
+	    obj.applyFilters(canvas1.renderAll.bind(canvas1));
+	     canvas1.renderAll();
+	}
+	function applyFilterLSleeve(index, filter) {
+	   var obj = canvas2.getActiveObject();
+	   obj.filters[index] = filter;
+	   obj.applyFilters(canvas2.renderAll.bind(canvas2));
+	    canvas2.renderAll();
+	}
+	function applyFilterRSleeve(index, filter) {
+	    var obj = canvas3.getActiveObject();
+	    //alert(index)
+	    obj.filters[index] = filter;
+	    obj.applyFilters(canvas3.renderAll.bind(canvas3));
+	    canvas3.renderAll();
+	}
+		//var canvas = this.__canvas = new fabric.Canvas('c');
+		canvas = new fabric.Canvas('cc', {
+			hoverCursor: 'pointer',
+			selection: true,
+			selectionBorderColor:'blue'
+		}, f = fabric.Image.filters);
+		canvas.on({
+			'object:moving': function(e) {		  	
+				e.target.opacity = 0.5;
+			},
+			'object:modified': function(e) {		  	
+				e.target.opacity = 1;
+			},
+			'object:selected':onObjectSelected1,
+			'selection:cleared':onSelectedCleared1,
+			'object:removed': function(object){
+			//console.warn(object);
+			jQuery( ".calhiden" ).find( "#"+object['target']['id'] ).remove();
+			}
+		});
+		/*back canvas initialize*/
+		canvas1 = new fabric.Canvas('c1', {
+			hoverCursor: 'pointer',
+			selection: true,
+			selectionBorderColor:'blue'
+		},g = fabric.Image.filters);
+		canvas1.setWidth(jQuery('#drawingArea-back').width());
+		canvas1.setHeight(jQuery('#drawingArea-back').height());
+		canvas1.on({
+			'object:moving': function(e) {		  	
+				e.target.opacity = 0.5;
+			},
+			'object:modified': function(e) {		  	
+				e.target.opacity = 1;
+			},
+			'object:selected':onObjectSelected2,
+			'selection:cleared':onSelectedCleared2,
+			'object:removed': function(object){
+			console.warn(object);
+			jQuery( ".calhiden" ).find( "#"+object['target']['id'] ).remove();
+			}
+		});
+
+
+		/*left sleeve canvas initialize*/
+		canvas2 = new fabric.Canvas('c3', {
+			hoverCursor: 'pointer',
+			selection: true,
+			selectionBorderColor:'red'
+		},g = fabric.Image.filters);
+		canvas2.setWidth(jQuery('#leftSleeve').width());
+		canvas2.setHeight(jQuery('#leftSleeve').height());
+		canvas2.on({
+			'object:moving': function(e) {		  	
+				e.target.opacity = 0.5;
+			},
+			'object:modified': function(e) {		  	
+				e.target.opacity = 1;
+			},
+			'object:selected':onObjectSelected3,
+			'selection:cleared':onSelectedCleared3,
+			'object:removed': function(object){
+			console.warn(object);
+			jQuery( ".calhiden" ).find( "#"+object['target']['id'] ).remove();
+			}
+		});
+		/*right sleeve canvas initialize*/
+		canvas3 = new fabric.Canvas('c4', {
+			hoverCursor: 'pointer',
+			selection: true,
+			selectionBorderColor:'purple'
+		},g = fabric.Image.filters);
+		canvas3.setWidth(jQuery('#rightSleeve').width());
+		canvas3.setHeight(jQuery('#rightSleeve').height());
+		canvas3.on({
+			'object:moving': function(e) {		  	
+				e.target.opacity = 0.5;
+			},
+			'object:modified': function(e) {		  	
+				e.target.opacity = 1;
+			},
+			'object:selected':onObjectSelected4,
+			'selection:cleared':onSelectedCleared4,
+			'object:removed': function(object){
+			console.warn(object);
+			jQuery( ".calhiden" ).find( "#"+object['target']['id'] ).remove();
+			}
+		});
+		fabric.Object.prototype.transparentCorners = false;
+		fabric.Canvas.prototype.customiseControls({
+	        tl: {
+	            action: 'rotate',
+	            cursor: 'cow.png',
+	        },
+	        tr: {
+	            action: 'scale',
+	        },
+	        bl: {
+	            action: function( e, target ) {
+		            remove_elm(target);
+		            target.remove();
+		            canvas.getActiveObject().remove();
+		            canvas.renderAll();
+		            canvas.renderAll();
+		        },
+	            cursor: 'pointer',
+	        },
+	        br: {
+	            action: 'moveUp',
+	            cursor: 'pointer',
+	        },
+	        mb: {
+	            action: 'moveDown',
+	            cursor: 'pointer',
+	        },
+	        mr: {
+	            action: function(e, target) {
+	                target.set({
+	                    left: 200,
+	                });
+	                canvas.renderAll();
+	            },
+	            cursor: 'pointer',
+	        },
+	        // mt: {
+	        //     action: {
+	        //         'rotateByDegrees': 30,
+	        //     },
+	        //     cursor: 'pointer',
+	        // },
+	        // only is hasRotatingPoint is not set to false
+	        mtr: {
+	            action: 'rotate',
+	            cursor: 'cow.png',
+	        },
+    	});
+		var w = jQuery('canvas').width();
+		var h = jQuery('canvas').height();
+	    var wcenter =w/2;
+	    var hcenter=h/3.5;
+	    var hscenter=h/4.2;
+	    var wrcenter=w/1.3;
+	    var txtcenterL = w/2.5;
+	    var txtcenterR = w/1.4;
+        var hcentertxt=h/2.5;
+        var lSl1 = w-(w-20);
+        var lSl2 = w/1.27; 
+        var rSl1 = w/1.27;
+        var rSl2 = w-(w-20);
+        //alert(rSl1)
+		// front sicde logo placed
+		jQuery(document).on("click",".img-polaroid", function(e){	
+			
+			add_to_form(jQuery(this).attr('src'));
+
+			var obj2= canvas.getObjects().length;
+			var obj3= canvas.getObjects().length;
+			if(obj3>0){
+				jQuery('.remove-Llogo, .body-front-btn').fadeIn(500).css('display','block')
+			}
+			var logo_name = $(this).attr('data-logo-name');
+			var el = e.target;
+			var date = new Date();
+				var components = [
+				date.getYear(),
+				date.getMonth(),
+				date.getDate(),
+				date.getHours(),
+				date.getMinutes(),
+				date.getSeconds(),
+				date.getMilliseconds()
+				];
+				var d = components.join("");
+			/*add hidden field to calculate price and delete price*/
+			jQuery('.calhiden').append('<input class="grabdata" type="hidden" name="" value="'+logo_name+'" id="'+d+'">');
+			fabric.Image.fromURL(el.src, function(img) {
+		        img.set({
+		            id: d,
+		            left: wcenter,
+		            top: hcenter,
+		            originX: 'center',
+		            originY: 'center',
+		            name:'leftImg',
+		            imgFor: 'front'
+		        });
+		    	canvas.setActiveObject(img);
+		    	//alert(ff);
+				applyFilter(1, new f.RemoveWhite({
+			      threshold: $('remove-white-threshold').value,
+			      distance: $('remove-white-distance').value
+			    }));
+				img.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false});
+		        // overwrite the prototype object based
+		        img.customiseCornerIcons({
+		            settings: {
+		                borderColor: 'red',
+		                cornerSize: 25,
+		                cornerBackgroundColor: 'red',
+		                cornerShape: 'circle',
+		                cornerPadding: 10,
+		            },
+		            tl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		            tr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+		            },
+		            bl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+
+		            },
+		            br: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+		            },
+					 ml: {
+		            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+					},
+					 mt: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+		            },
+		            mb: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+		            },
+		            // only is hasRotatingPoint is not set to false
+		            mtr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		        }, function() {
+		        	canvas.renderAll();
+		        });
+		        //alert('click');
+		        img.scaleToWidth(canvas.getWidth()/3.2);
+		        canvas.add(img);
+		        canvas.setOverlayImage('<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3_l.png', canvas.renderAll.bind(canvas),{
+			       		width: canvas.width,
+	    				height: canvas.height
+		       	});
+
+		       	// adding images to from ranit
+
+
+		       	
+	   		 	this.__canvases.push(canvas);
+   			 });
+			 
+			 // price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});	 
+		// back side image placed
+		jQuery(document).on("click",".img-polaroid-back", function(e){
+
+			add_to_back(jQuery(this).attr('src'));
+
+			var obj2= canvas1.getObjects().length;
+			var obj4= canvas1.getObjects().length;	
+		  	if(obj4>0){
+				jQuery('.body-back-btn, .remove-Rlogo').fadeIn(500).css('display','block')
+			}
+			var logo_url = $(this).attr('src');
+			var logo_name = $(this).attr('data-logo-name');
+			var el = e.target;
+			var date = new Date();
+				var components = [
+				date.getYear(),
+				date.getMonth(),
+				date.getDate(),
+				date.getHours(),
+				date.getMinutes(),
+				date.getSeconds(),
+				date.getMilliseconds()
+				];
+			var d1 = components.join("");
+			/*add hidden field to calculate price and delete price*/
+			jQuery('.calhiden').append('<input class="grabdata" type="hidden" name="" value="'+logo_name+'" id="'+d1+'">');
+			fabric.Image.fromURL(el.src, function(img) {
+	        img.set({
+	            id: d1,
+	            imgFor: 'back',
+	            left: wcenter,
+	            top: hcenter,
+	             name:'leftImg',
+	            /*scaleX: 0.2,
+	            scaleY: 0.2,*/
+	            originX: 'center',
+	            originY: 'center',
+	        });
+        	canvas1.setActiveObject(img);
+        	//alert(gg)
+	        applyFilterBack(2, new f.RemoveWhite({
+			      threshold: $('remove-white-threshold').value,
+			      distance: $('remove-white-distance').value
+			    }));
+			img.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false});
+        	// overwrite the prototype object based
+		    img.customiseCornerIcons({
+			            settings: {
+			                borderColor: 'red',
+			                cornerSize: 25,
+			                cornerBackgroundColor: 'red',
+			                cornerShape: 'circle',
+			                cornerPadding: 10,
+			            },
+			            tl: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+			            },
+			            tr: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+			            },
+			            bl: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+			            },
+			            br: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+			            },
+						 ml: {
+			            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+						},
+			            mb: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+			            },
+			            mt: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+			            },
+			            // only is hasRotatingPoint is not set to false
+			            mtr: {
+			                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+			            },
+			        }, function() {
+			            canvas.renderAll();
+		        });
+		        img.scaleToWidth(canvas1.getWidth()/3.2);
+		        canvas1.add(img);
+		        canvas1.setOverlayImage('<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3_r.png', canvas1.renderAll.bind(canvas1),{
+			       		width: canvas1.width,
+	    				height: canvas1.height
+		       	});
+	   		 	this.__canvases.push(canvas1);
+	    	});
+			
+			// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});	 
+		// left sleeve logo placed
+		jQuery(document).on("click",".img-polaroid-Lsleeve", function(e){
+
+			add_to_left(jQuery(this).attr('src'));
+
+			var obj1= canvas.getObjects().length;
+			var obj2= canvas1.getObjects().length;
+			var logo_url = $(this).attr('src');
+			var logo_name = $(this).attr('data-logo-name');
+			var el = e.target;
+			var date = new Date();
+			var components = [
+				date.getYear(),
+				date.getMonth(),
+				date.getDate(),
+				date.getHours(),
+				date.getMinutes(),
+				date.getSeconds(),
+				date.getMilliseconds()
+			];
+				var d2 = components.join("");
+				/*add hidden field to calculate price and delete price*/
+				jQuery('.calhiden').append('<input class="grabdata" type="hidden" name="" value="'+logo_name+'" id="'+d2+'">');
+			var a = fabric.Image.fromURL(el.src, function(img) {
+			   			   //canvas2.item(0).selectable = false;
+		        img.set({
+		            id: d2,
+		            left: lSl1,
+		            top: hscenter,
+		            name:'leftImg',
+		            imgFor: 'leftSleeve',
+		            /*scaleX: 0.2,
+		            scaleY: 0.2,*/
+		            originX: 'left',
+		            originY: 'top',
+		        });
+		        var lsObject =img.id;
+		        var last = lsObject.length -1;
+		        //alert(lsObject);
+	        	canvas.setActiveObject(img);
+		        applyFilter(1, new f.RemoveWhite({
+			      threshold: $('remove-white-threshold').value,
+			      distance: $('remove-white-distance').value
+			    }));
+	   			img.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false, 'br':false, 'mb': false});
+		        // overwrite the prototype object based
+		        img.customiseCornerIcons({
+		            settings: {
+		                borderColor: 'red',
+		                cornerSize: 25,
+		                cornerBackgroundColor: 'red',
+		                cornerShape: 'circle',
+		                cornerPadding: 10,
+		            },
+		            tl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		            tr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+		            },
+		            bl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+		            },
+		            br: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+		            },
+					 ml: {
+		            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+					},
+					 mt: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+		            },
+		            mb: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+		            },
+		            // only is hasRotatingPoint is not set to false
+		            mtr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		        }, function() {
+		        	canvas.renderAll();
+		        });
+		        //alert('click');
+		        img.scaleToWidth(canvas.getWidth()/5.2);
+		        canvas.add(img);
+		        canvas.setOverlayImage('<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3_l.png', canvas.renderAll.bind(canvas),{
+			       		width: canvas.width,
+	    				height: canvas.height
+		       	});
+	   		 	this.__canvases.push(canvas);
+	    	});
+	    		var b = fabric.Image.fromURL(el.src, function(image) {
+			   //canvas2.item(0).selectable = false;
+		        image.set({
+		            id: d2,
+		            left: lSl2,
+		            top: hscenter,
+		            name:'leftImg',
+		            originX: 'left',
+		            originY: 'top',
+		            //selection: false,
+		            borderColor: 'transparent',
+				    cornerColor: 'transparent',
+				    cornerSize: 0,
+		        });
+		         var lsObject2 = image.id;
+		         var last = lsObject2.length -1;
+		        //alert(lsObject);
+	        	//canvas2.setActiveObject(img);
+	        	canvas1.setActiveObject(image);
+		        applyFilterBack(2, new f.RemoveWhite({
+			      threshold: $('remove-white-threshold').value,
+			      distance: $('remove-white-distance').value
+			    }));
+	   			image.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false, 'br':false, 'mb': false});
+		        // overwrite the prototype object based
+		        image.customiseCornerIcons({
+		            settings: {
+		                borderColor: 'red',
+		                cornerSize: 25,
+		                cornerBackgroundColor: 'red',
+		                cornerShape: 'circle',
+		                cornerPadding: 10,
+		            },
+		            tl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		            tr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+		            },
+		            bl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+		            },
+		            br: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+		            },
+					 ml: {
+		            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+					},
+					 mt: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+		            },
+		            mb: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+		            },
+		            // only is hasRotatingPoint is not set to false
+		            mtr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		        }, function() {
+		        	canvas1.renderAll();
+		        });
+		        //alert('click');
+		        image.scaleToWidth(canvas1.getWidth()/5.2);
+		        canvas1.add(image);
+		        canvas1.setOverlayImage('<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3_r.png', canvas1.renderAll.bind(canvas1),{
+			       		width: canvas1.width,
+	    				height: canvas1.height
+		       	});
+	   		 	this.__canvases.push(canvas1);
+	    		});
+				
+				// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});	
+		// right sleeve logo placed
+		jQuery(document).on("click",".img-polaroid-Rsleeve", function(e){
+
+			add_to_right(jQuery(this).attr('src'));
+
+			var obj2= canvas1.getObjects().length;
+			var obj1= canvas.getObjects().length;	
+			var logo_url = $(this).attr('src');
+			var logo_name = $(this).attr('data-logo-name');
+			var el = e.target;
+			var date = new Date();
+			var components = [
+				date.getYear(),
+				date.getMonth(),
+				date.getDate(),
+				date.getHours(),
+				date.getMinutes(),
+				date.getSeconds(),
+				date.getMilliseconds()
+			];
+			var d3 = components.join("");
+				/*add hidden field to calculate price and delete price*/
+			jQuery('.calhiden').append('<input class="grabdata" type="hidden" name="" value="'+logo_name+'" id="'+d3+'">');
+			fabric.Image.fromURL(el.src, function(img) {
+	        img.set({
+	            id: d3,
+		            left: rSl1,
+		            top: hscenter,
+		             name:'leftImg',
+		             imgFor: 'rightSleeve',
+		            /*scaleX: 0.2,
+		            scaleY: 0.2,*/
+		            originX: 'left',
+		            originY: 'top',
+		            //selection: false,
+		            borderColor: 'transparent',
+				    cornerColor: 'transparent',
+				    cornerSize: 0,
+	        });
+	        var rsObject = img.id;
+	        var last = rsObject.length -1;
+        	canvas.setActiveObject(img);
+	         applyFilter(1, new f.RemoveWhite({
+			      threshold: $('remove-white-threshold').value,
+			      distance: $('remove-white-distance').value
+			    }));
+			//img.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false});
+	   		img.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false, 'br':false, 'mb': false});
+		        // overwrite the prototype object based
+		    img.customiseCornerIcons({
+		            settings: {
+		                borderColor: 'red',
+		                cornerSize: 25,
+		                cornerBackgroundColor: 'red',
+		                cornerShape: 'circle',
+		                cornerPadding: 10,
+		            },
+		            tl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		            tr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+		            },
+		            bl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+		            },
+		            br: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+		            },
+					 ml: {
+		            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+					},
+					 mt: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+		            },
+		            mb: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+		            },
+		            // only is hasRotatingPoint is not set to false
+		            mtr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		    }, function() {
+		        	canvas.renderAll();
+		        });
+		        //alert('click');
+		    img.scaleToWidth(canvas.getWidth()/5.2);
+		    canvas.add(img);
+		    canvas.setOverlayImage('<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3_l.png', canvas.renderAll.bind(canvas),{
+			       		width: canvas.width,
+	    				height: canvas.height
+		       	});
+	   		 	this.__canvases.push(canvas);
+	    	});
+			fabric.Image.fromURL(el.src, function(image) {
+	        image.set({
+	            id: d3,
+		            left: rSl2,
+		            top: hscenter,
+		            name:'leftImg',
+		            /*scaleX: 0.2,
+		            scaleY: 0.2,*/
+		            originX: 'left',
+		            originY: 'top',
+		            //selection: false,
+		            borderColor: 'transparent',
+				    cornerColor: 'transparent',
+				    cornerSize: 0,
+	        });
+	        var rsObject2 = image.id;
+	        var last = rsObject2.length -1;
+        	canvas1.setActiveObject(image);
+	         applyFilterBack(2, new f.RemoveWhite({
+			      threshold: $('remove-white-threshold').value,
+			      distance: $('remove-white-distance').value
+			    }));
+			//img.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false});
+	   			image.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false, 'br':false, 'mb': false});
+		        // overwrite the prototype object based
+		        image.customiseCornerIcons({
+		            settings: {
+		                borderColor: 'red',
+		                cornerSize: 25,
+		                cornerBackgroundColor: 'red',
+		                cornerShape: 'circle',
+		                cornerPadding: 10,
+		            },
+		            tl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		            tr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+		            },
+		            bl: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+		            },
+		            br: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+		            },
+					 ml: {
+		            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+					},
+					 mt: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+		            },
+		            mb: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+		            },
+		            // only is hasRotatingPoint is not set to false
+		            mtr: {
+		                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+		            },
+		        }, function() {
+		        	canvas1.renderAll();
+		        });
+		        //alert('click');
+		        image.scaleToWidth(canvas1.getWidth()/5.2);
+		        canvas1.add(image);
+		        canvas1.setOverlayImage('<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/'+cat_name+'/shadow/3_3_r.png', canvas1.renderAll.bind(canvas1),{
+			       		width: canvas1.width,
+	    				height: canvas1.height
+		       	});
+	   		 	this.__canvases.push(canvas1);
+	    	});
+			
+			// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});	 
+	
+		// ranit code 31-12-2018
+		var allfontLogos = [];
+		var allbackLogos = [];
+		var allleftSleeveLogos = [];
+		var allrightSleeveLogos = [];
+
+		function add_to_form(src){
+			
+
+			if(!inArray(allfontLogos, src)){
+
+				allfontLogos.push(src);
+				jQuery('.custom_user-file input').val(allfontLogos);
+			
+			}
+		}
+		function add_to_back(src){
+			if(!inArray(allbackLogos, src)){
+				allbackLogos.push(src);
+				jQuery('.custom_user-file-back input').val(allbackLogos);			
+			}
+		}
+		function add_to_left(src){
+	
+
+			if(!inArray(allleftSleeveLogos, src)){
+
+				allleftSleeveLogos.push(src);
+				jQuery('.custom_user-file-lsleeve input').val(allleftSleeveLogos);
+			
+			}
+		}
+		function add_to_right(src){
+	
+
+			if(!inArray(allrightSleeveLogos, src)){
+
+				allrightSleeveLogos.push(src);
+				jQuery('.custom_user-file-rsleeve input').val(allrightSleeveLogos);
+			
+			}
+		}
+
+
+
+		function remove_elm(item){
+			var sss = item._originalElement.currentSrc;
+
+			if(item.imgFor == 'front'){
+
+				var index = allfontLogos.indexOf(sss);
+				if (index > -1) {
+				  allfontLogos.splice(index, 1);
+				}		
+				jQuery('.custom_user-file input').val(allfontLogos);
+
+			}
+			if(item.imgFor == 'back'){
+
+				var index = allbackLogos.indexOf(sss);
+				if (index > -1) {
+				  allbackLogos.splice(index, 1);
+				}		
+				jQuery('.custom_user-file-back input').val(allbackLogos);
+
+			}
+			if(item.imgFor == 'leftSleeve'){
+				var index = allleftSleeveLogos.indexOf(sss);
+				if (index > -1) {
+				  allleftSleeveLogos.splice(index, 1);
+				}		
+				jQuery('.custom_user-file-lsleeve input').val(allleftSleeveLogos);
+
+			}
+			if(item.imgFor == 'rightSleeve'){
+				var index = allrightSleeveLogos.indexOf(sss);
+				if (index > -1) {
+				  allrightSleeveLogos.splice(index, 1);
+				}		
+				jQuery('.custom_user-file-rsleeve input').val(allrightSleeveLogos);
+			}
+			
+		}
+
+		function inArray(arr,src){
+		    
+		    var index = arr.indexOf(src);
+			if (index > -1) {
+			  return true;
+			}else{
+				return false;
+			}	
+		}
+
+
+
+		line1 = new fabric.Line([0,0,145,0], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+		line2 = new fabric.Line([144,0,145,285], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+		line3 = new fabric.Line([0,0,0,285], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+		line4 = new fabric.Line([0,284,144,285], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+		$("#capture").click(function(e){
+			var element = document.getElementById("item");
+			var prod = jQuery('.product_id').val();
+			html2canvas(element).then(function(canvas) {
+				// Export the canvas to its data URI representation
+				var base64image = canvas.toDataURL("image/png");
+				var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+				jQuery.ajax({
+					url: ajaxurl, //AJAX file path - admin_url('admin-ajax.php')
+					type: "POST",
+					data: {
+						//action name
+						action:'save_custom_tshirt_images',
+						imgdata: base64image,
+						prod: prod
+					},
+					//async : false,
+					success: function(data){
+						$('#image_id img').attr('src', data);
+					}
+				});
+			});
+		});
+		var c1=jQuery('canvas#cc');
+		var c2 =jQuery('canvas#c1');
+		var c3 =jQuery('canvas#c3');
+		var c4 =jQuery('canvas#c4');
+		var msg = '';
+		function onObjectSelected1(e) {
+			var selectedObject = e.target;
+			showToolTop();
+			$("#text-string").val("");
+			jQuery('.text-preview span').empty();
+			selectedObject.hasRotatingPoint = true
+			if (selectedObject && selectedObject.type === 'text') {
+				if(jQuery(c1)){
+					jQuery('#drawingArea canvas').addClass('activeFront');
+				}
+			}
+		}
+		function onObjectSelected2(e) {
+			var selectedObject = e.target;
+			showToolTop();
+			//alert(selectedObject);
+			$("#text-string-back").val("");
+			jQuery('.text-preview span').empty();
+			selectedObject.hasRotatingPoint = true
+			if (selectedObject && selectedObject.type === 'text') {
+				if(jQuery(c2)){
+					jQuery('#drawingArea-back canvas').addClass('activeFront');
+				}
+			}
+		}
+		function onObjectSelected3(e) {
+			showToolTop();
+			var selectedObject = e.target;
+			$("#text-string").val("");
+			selectedObject.hasRotatingPoint = true
+			var obj = canvas.getObjects().length;
+			if(obj>0){
+				//jQuery('<button class="activeSleeveLogo">Active right sleeve logo </button> <button class="activebodyLogo">Active back body logo </button>').appendTo('.customize')
+			}
+		}
+		function onObjectSelected4(e) {
+			showToolTop();
+			var selectedObject = e.target;
+			//alert(selectedObject);
+			$("#text-string").val("");
+			selectedObject.hasRotatingPoint = true
+			var obj = canvas1.getObjects().length;
+			if(obj>0){
+			}
+		}
+		function onSelectedCleared1(e){
+			jQuery(".edittabdiv").css('display', 'none');
+			if(jQuery(c1)){
+					jQuery('#drawingArea canvas').removeClass('activeFront');
+				}
+		}
+		function onSelectedCleared2(e){
+			jQuery(".edittabdiv").css('display', 'none');
+			if(jQuery(c2)){
+					jQuery('#drawingArea-back canvas').removeClass('activeFront');
+				}
+		}
+		function onSelectedCleared3(e){
+			if(jQuery(c3)){
+				}
+				var obj = canvas.getObjects().length;	
+			if(obj==0){
+				jQuery('#drawingArea canvas').removeClass('activeFront');
+			}
+		}
+		function onSelectedCleared4(e){
+			var obj = canvas1.getObjects().length;	
+			if(obj==0){
+				jQuery('#drawingArea-back canvas').removeClass('activeFront');
+			}
+		}
+		// popup close
+			jQuery('#popups .close').on('click', function(e){
+			  e.preventDefault();
+			  closePopup()
+			});
+			jQuery('.popoverlay').on('click', function(e){
+			  closePopup()
+			});
+		//  open/close popup
+		function openPopup(msg){
+		   jQuery('#popups').css({'top':popFall, 'opacity':'1',  'transition':'all .5s ease-in-out'});
+		   var nmsg = '<p id="text">'+msg+'</p>';
+		    jQuery('.popupbody').html(nmsg);
+		   jQuery('.popoverlay').fadeIn(500);
+		}
+		function closePopup(){
+		  jQuery('#popups').css({'top':'-100%', 'opacity':'0',  'transition':'all .5s ease-in-out'});
+		  jQuery('.popoverlay').fadeOut(500);
+		}
+		function getSelection(){
+			return canvas.getActiveObject() == null ? canvas.getActiveGroup() : canvas.getActiveObject()
+		}
+		function getSelection1(){
+			return canvas1.getActiveObject() == null ? canvas1.getActiveGroup() : canvas1.getActiveObject()
+		}
+		function getSelection2(){
+			return canvas2.getActiveObject() == null ? canvas2.getActiveGroup() : canvas2.getActiveObject()
+		}
+		function getSelection3(){
+			return canvas3.getActiveObject() == null ? canvas3.getActiveGroup() : canvas3.getActiveObject()
+		}
+		// add text to canvas for front		
+		jQuery("#add-text").click(function(e){
+			var text = jQuery("#text-string").val();
+			jQuery('.custom_front_name input').val(text);
+			var fntfamily = jQuery(this).parent().siblings('.text-preview').children('span').attr('style');
+			var txtColor = jQuery(this).parent().siblings().children('.grabdata').val();
+			//alert(txtColor);
+			//alert(fntfamily);
+			fntfamily = fntfamily.split(':')[1];
+			newfntfamily = fntfamily.split(';')[0];
+			//alert(newfntfamily);
+			var textSample = new fabric.Text(text, {
+				//left: fabric.util.getRandomInt(0, 50),
+				//top: fabric.util.getRandomInt(0, 50),
+				left: txtcenterL,
+           		top: hcentertxt,
+				fontFamily: newfntfamily,				
+				angle: 0,
+				fill: txtColor,
+				scaleX: 0.5,
+				scaleY: 0.5,
+				fontWeight: '',
+				hasRotatingPoint:true,
+				fontSize:50,
+				padding:20,
+				name:'leftImg',
+			});	
+			textSample.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false});	
+        	// overwrite the prototype object based
+	        textSample.customiseCornerIcons({
+	            settings: {
+	                borderColor: 'red',
+	                cornerSize: 25,
+	                cornerBackgroundColor: 'red',
+	                cornerShape: 'circle',
+	                cornerPadding: 10,
+	            },
+	            tl: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+	            },
+	            tr: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+	            },
+	            bl: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+	            },
+	            br: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+	            },
+				 ml: {
+	            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+				},
+				 mt: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+	            },
+	            mb: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+	            },
+	            // only is hasRotatingPoint is not set to false
+	            mtr: {
+	                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+	            },
+	        }, function() {
+	        	var obj = canvas.getObjects();
+	        	if(obj==='text'){
+	            canvas.renderAll();
+	        	}
+        });
+		canvas.add(textSample);	
+		canvas.item(canvas.item.length-1).hasRotatingPoint = true;
+		
+		// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+	});
+		/*back side text add to canvas*/
+		jQuery("#add-text-back").click(function(e){
+			var text = jQuery("#text-string-back").val();
+			jQuery('.custom_back_name input').val(text);
+			var fntfamily = jQuery(this).parent().siblings('.text-preview').children('span').attr('style');
+			//alert(fntfamily);
+			fntfamily = fntfamily.split(':')[1];
+			newfntfamily = fntfamily.split(';')[0];
+			var txtColor = jQuery(this).parent().siblings().children('.fntclrback').val();
+			//alert(newfntfamily);
+			var textSample = new fabric.Text(text, {
+				//left: fabric.util.getRandomInt(0, 50),
+				//top: fabric.util.getRandomInt(0, 50),
+				left: txtcenterL,
+           		top: hcentertxt,
+				fontFamily: newfntfamily,
+				angle: 0,
+				fill: txtColor,
+				scaleX: 0.5,
+				scaleY: 0.5,
+				fontWeight: '',
+				hasRotatingPoint:true,
+				fontSize:50,
+				padding:20,
+				name:'leftImg',
+			});	
+		textSample.setControlsVisibility({'mr': false, 'mt':true, 'mtr': false});
+        // overwrite the prototype object based
+        textSample.customiseCornerIcons({
+            settings: {
+                borderColor: 'red',
+                cornerSize: 25,
+                cornerBackgroundColor: 'red',
+                cornerShape: 'circle',
+                cornerPadding: 10,
+            },
+            tl: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+            },
+            tr: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize-diagonal.svg',
+            },
+            bl: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/remove.svg',
+            },
+            br: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/up.svg',
+            },
+			 ml: {
+            icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/resize.svg',
+			},
+			mt: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/scaleY.svg',
+            },
+            mb: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/down.svg',
+            },
+            // only is hasRotatingPoint is not set to false
+            mtr: {
+                icon: '<?php echo get_stylesheet_directory_uri(); ?>/customproducts/js/icons/rotate.svg',
+            },
+        }, function() {
+            canvas1.renderAll();
+        });
+			canvas1.add(textSample);	
+			canvas1.item(canvas1.item.length-1).hasRotatingPoint = true; 
+			
+			// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		});
+		/*front text color initialize*/
+		jQuery(".colorPickSelectorfont").colorPick({
+			'initialColor' : '#ffffff',
+			'onColorSelected': function() {
+				this.element.css({'backgroundColor': this.color, 'color': this.color});
+				jQuery(".fntclr").val(this.color);
+				jQuery('.custom_front_name_color input').val(this.color);
+				var color = this.color;			//alert(color)
+				jQuery(this.element).parent().siblings('.text-preview').children('span').css({'color':color});
+				//alert('input ' + color);
+				var activeObject = getSelection();
+				//alert(activeObject);
+				if (activeObject && activeObject.type === 'text') {
+					activeObject.set({fill: color});
+					canvas.renderAll();
+				}
+				
+				// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+			}
+		});
+		/*backside font color initialize*/
+		jQuery(".colorPickSelectorfontback").colorPick({
+			'initialColor' : '#ffffff',
+			'onColorSelected': function() {
+				this.element.css({'backgroundColor': this.color, 'color': this.color});
+				jQuery(".fntclrback").val(this.color);
+				jQuery('.custom_back_name_color input').val(this.color);
+				var color = this.color;
+				jQuery(this.element).parent().siblings('.text-preview').children('span').css('color',color);
+				var activeObject = getSelection1();
+				//alert(activeObject);
+				if (activeObject && activeObject.type === 'text') {
+					activeObject.set({fill: color});                    
+		            canvas1.renderAll();				   
+				}
+				
+				// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+			}
+		});
+	});
+// added on 30.10.2018 from below script
+/*logo upload section from logo section*/
+	jQuery(document).ready(function(){
+	//jQuery('.default-btn').click(function(event){
+	jQuery("input[name=user-file]").change(function(event) {
+		//event.preventDefault();
+		jQuery(".loader").show();
+		var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+		var formData = new FormData();
+		formData.append('updoc', jQuery('input[type=file]')[0].files[0]);
+		formData.append('action', 'questiondatahtml');
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data:formData,cache: false,
+			processData: false, // Don’t process the files
+			contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			success:function(data) {
+				jQuery('#image_tooltip').modal('show');
+				var myJSON = jQuery.parseJSON(data);
+				if(myJSON[0]==1){
+					/*genarate random number and push it into dynamically added logo*/
+					 var d = new Date();
+					 var n = d.getMilliseconds();
+					 var html ='<li><a href="#" data-val="'+n+'"><img data-logo-price="12" data-logo-name="f'+ n +'" class="img-polaroid" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/'+myJSON[1]+'" alt="#"></a> <span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></span></li>'
+					jQuery('.custom-logo-list').prepend(html);
+					jQuery(".loader").hide();
+					// jQuery('.custom_user-file input').val("<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/"+myJSON[1]);
+					//arif
+				}
+				
+				// price change show 29.12.2018
+				setTimeout(function(){ 
+					var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+					show_the_datprice(data_price); 
+				}, 1500);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				jQuery(".loader").hide();
+				alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+			}  
+		});
+	});
+/*back portion logo*/
+jQuery("input[name=user-file-back]").change(function() {
+	jQuery(".loader").show();
+	var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	var formData = new FormData();
+	formData.append('updocback', jQuery('#user-file-back')[0].files[0]);
+	formData.append('action', 'questiondatahtmlback');
+	jQuery.ajax({
+		url: ajaxurl,
+		type: 'POST',
+		data:formData,cache: false,
+		processData: false, // Don’t process the files
+		contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		success:function(data) {
+			jQuery(".loader").hide();
+			jQuery('#image_tooltip').modal('show');
+			var myJSON = jQuery.parseJSON(data);
+				if(myJSON[0]==1){
+					var d = new Date();
+					var n = d.getMilliseconds();
+					var html ='<li ><a href="#" data-val="'+n+'"><img data-logo-price="12" class="img-polaroid-back" data-logo-name="b'+ n +'" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/'+myJSON[1]+'" alt="#"></a><span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></li>'
+					jQuery('.custom-logo-list-back').prepend(html);
+					//jQuery('.custom_user-file-back input').val("<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/"+myJSON[1]);
+				}
+				
+				// price change show 29.12.2018
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			jQuery(".loader").hide();
+			alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+		} 
+		
+	});
+});
+// Left sleeve logo
+	jQuery("input[name=user-file-Lsleeve]").change(function() {	
+		jQuery(".loader").show();
+		var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+		var formData = new FormData();
+		formData.append('updocsleeve', jQuery('#user-file-Lsleeve')[0].files[0]);
+		formData.append('action', 'questiondatahtmllsleeve');
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data:formData,cache: false,
+			processData: false, // Don’t process the files
+			contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			success:function(data) {
+				jQuery(".loader").hide();
+				jQuery('#image_tooltip').modal('show');
+				var myJSON = jQuery.parseJSON(data);
+				if(myJSON[0]==1){
+					var d = new Date();
+					var n = d.getMilliseconds();
+					var html ='<li ><a href="#" data-val="'+n+'"><img data-logo-price="12" class="img-polaroid-Lsleeve addonlslogo" data-logo-name="ls'+ n +'" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/'+myJSON[1]+'" alt="#"></a><span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></li>'
+					//alert(html)
+					jQuery('.custom-logo-list-Lsleeve').prepend(html);
+					//jQuery('.custom_user-file-lsleeve input').val("<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/"+myJSON[1]);
+				}
+				// price change show 29.12.2018
+				setTimeout(function(){ 
+					var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+					show_the_datprice(data_price); 
+				}, 1500);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				jQuery(".loader").hide();
+				alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+			} 
+		});
+	});
+//LS Logo addon
+// jQuery(document).on('click', 'ul.custom-logo-list-Lsleeve li a', function(){
+// 	jQuery("ul.custom-logo-list-Lsleeve li a img").clone().appendTo("#item");
+// });
+// Right sleeve logo
+jQuery("input[name=user-file-Rsleeve]").change(function() {	
+	jQuery(".loader").show();
+	var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	var formData = new FormData();
+	formData.append('updocssleeve', jQuery('#user-file-Rsleeve')[0].files[0]);
+	formData.append('action', 'questiondatahtmlrsleeve');
+	jQuery.ajax({
+		url: ajaxurl,
+		type: 'POST',
+		data:formData,cache: false,
+		processData: false, // Don’t process the files
+		contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		success:function(data) {
+		jQuery(".loader").hide();
+		var myJSON = jQuery.parseJSON(data);
+			if(myJSON[0]==1){
+				var d = new Date();
+				var n = d.getMilliseconds();
+				var html ='<li ><a href="#" data-val="'+n+'"><img data-logo-price="12" class="img-polaroid-Rsleeve" data-logo-name="rs'+ n +'" src="<?php echo get_stylesheet_directory_uri(); ?>/customizer_images/user-uploaded-logo/'+myJSON[1]+'" alt="#"></a><span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></li>'
+				jQuery('.custom-logo-list-Rsleeve').prepend(html);
+			}
+			setTimeout(function(){ 
+				var data_price = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+				show_the_datprice(data_price); 
+			}, 1500);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			jQuery(".loader").hide();
+			alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+		}
+	});
+});
+	//RS Logo addon
+	// jQuery(document).on('click', 'ul.custom-logo-list-Rsleeve li a', function(){
+	// 	var cln = jQuery("ul.custom-logo-list-Rsleeve li a img").clone().appendTo("#item");
+	// });
+});
+	
+	
+	
+	
+	
+</script>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.single_add_to_cart_button,.shop_cart').click(function(){
+			jQuery("#preloader").show();
+			jQuery("#status").show();
+			jQuery(".variations_form.cart").submit();			
+			/* Ar 
+				var products_ids = jQuery("input[name=product_id]").val();
+				var variation_id = jQuery("input[name=variation_id]").val();
+				var quantity = jQuery("input[name=quantity]").val();
+				var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+				jQuery.ajax({
+					url: ajaxurl, 
+					type: "POST",
+					dataType: "text",
+					data: {
+						action:'wdm_add_user_itemcart_update',
+						pids:products_ids,
+						variation_id:variation_id,
+						quantity:quantity,
+					},
+					success: function(data){
+						jQuery(".variations_form.cart").submit();
+					}
+				});
+			Ar new */ 
+			
+			/* var products_ids = jQuery('.product_id').val();
+			eventsArray = new Array();
+			var selectCounter=0;
+			jQuery('.grabdata').each(function(){
+				var value = jQuery(this).val();
+				var name = 'custom_data_'+selectCounter;
+				if(value !=undefined && name !=undefined){
+					eventsArray[selectCounter] = {value,name };
+					selectCounter++;
+				}
+			});
+			var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+			jQuery.ajax({
+				url: ajaxurl, //AJAX file path - admin_url('admin-ajax.php')
+				type: "POST",
+				dataType: "text",
+				data: {//action name
+					action:'wdm_add_user_customizer_data_options',
+					selectedTypeArray:eventsArray,
+					pids:products_ids
+				},
+				success: function(data){
+				}
+			}); */
+	
+	
+	})
+		
+		
+		/*zoom jquery*/
+		jQuery('.parent').find('.panzoom').panzoom({
+           $zoomIn: jQuery('.parent').find(".zoom-in"),
+           $zoomOut: jQuery('.parent').find(".zoom-out"),
+            $zoomRange: jQuery('.parent').find(".zoom-range"),
+            $reset: jQuery('.parent').find(".reset"),
+			panOnlyWhenZoomed: true,
+			minScale: 1
+          });
+	});
+	
+	function  show_the_datprice(data_price){
+		var avoid =$('.price-area .sign').text();;
+		data_price = data_price.replace(avoid,'');
+		$('.custom_price').html(data_price);
+		$('.custom_price').attr('data-total',data_price);
+	}
+	
+</script>
+<script type='text/javascript'>
+jQuery(document).ready(function(){
+	jQuery('ul.garments-list li').hover(function() {
+		var pclass = jQuery(this).attr('data-slug');
+		jQuery( ".catdes" ).find( "."+pclass ).show();
+  }, function() {
+	var pclass = jQuery(this).attr('data-slug');
+    jQuery('.catdes').find( "."+pclass ).hide();
+  });
+});	
+</script>
+
+<script type='text/javascript'>
+// var acc = document.getElementsByClassName("accordion");
+// var i;
+// for (i = 0; i < acc.length; i++) {
+//   acc[i].addEventListener("click", function() {
+//     /* Toggle between adding and removing the "active" class,
+//     to highlight the button that controls the panel */
+//     this.classList.toggle("active");
+
+//     /* Toggle between hiding and showing the active panel */
+//     var panel = this.nextElementSibling;
+//     if (panel.style.display === "block") {
+//       panel.style.display = "none";
+//     } else {
+//       panel.style.display = "block";
+//     }
+//   });
+// }
+
+jQuery(document).on('click','.accordion',function(){
+	jQuery(this).toggleClass('active').siblings().removeClass('active');
+	jQuery(this).next('.panel').toggleClass('show').siblings().removeClass('show');
+});
+
+
+
+jQuery('.save').on('click',function(){
+
+		jQuery(this).text('saving');
+		var dot = '.';
+		var count = 1;
+		var interval = setInterval(function(){ 
+			count ++;
+			if(count > 5){
+				dot = '';
+				count = 1;
+			}
+			dot= dot+' .';
+			jQuery('.save').html('saving'+dot);
+		},1000);
+
+		
+		var json_data = JSON.stringify(canvas.toDatalessJSON()); 	
+		
+		var json_data_2 = JSON.stringify(canvas1.toDatalessJSON()); 
+		
+	
+		var params_savesettingsdata = {};
+		//category
+		params_savesettingsdata['category'] = jQuery('#category').val();
+		//design
+		params_savesettingsdata['design'] = jQuery('.variations #design').val();
+		params_savesettingsdata['main_body'] = jQuery('.custom_main_body input').val();
+		params_savesettingsdata['side_body'] = jQuery('.custom_side_body input').val();
+		params_savesettingsdata['collar'] = jQuery('.custom_collar input').val();
+		params_savesettingsdata['body_upper'] = jQuery('.custom_body_upper input').val();
+		params_savesettingsdata['body_lower'] = jQuery('.custom_body_lower input').val();
+		params_savesettingsdata['zigzag1'] = jQuery('.custom_zigzag1 input').val();
+		params_savesettingsdata['zigzag2'] = jQuery('.custom_zigzag2 input').val();
+		params_savesettingsdata['zigzag3'] = jQuery('.custom_zigzag3 input').val();
+		params_savesettingsdata['string'] = jQuery('.custom_string input').val();
+		params_savesettingsdata['elastic'] = jQuery('.custom_elastic input').val();
+		params_savesettingsdata['sleeve_by_color'] = jQuery('.custom_sleeve_by_color input').val();
+		params_savesettingsdata['plaket_inner'] = jQuery('.custom_plaket_inner input').val();
+		params_savesettingsdata['collar_by_color'] = jQuery('.custom_collar_by_color input').val();
+		params_savesettingsdata['button'] = jQuery('.custom_button input').val();
+		//logos
+		params_savesettingsdata['user-file'] = jQuery('.custom_user-file input').val();
+		params_savesettingsdata['user-file-back'] = jQuery('.custom_user-file-back input').val();
+		params_savesettingsdata['user-file-lsleeve'] = jQuery('.custom_user-file-lsleeve input').val();
+		params_savesettingsdata['user-file-rsleeve'] = jQuery('.custom_user-file-rsleeve input').val();
+		//name & Number
+		params_savesettingsdata['front_name'] = jQuery('.custom_front_name input').val();
+		params_savesettingsdata['front_name_style'] = jQuery('.custom_front_name_style input').val();
+		params_savesettingsdata['front_name_color'] = jQuery('.custom_front_name_color input').val();
+		params_savesettingsdata['back_name'] = jQuery('.custom_back_name input').val();
+		params_savesettingsdata['back_name_style'] = jQuery('.custom_back_name_style input').val();
+		params_savesettingsdata['back_name_color'] = jQuery('.custom_back_name_color input').val();
+		//fabric
+		params_savesettingsdata['fabric_type'] = jQuery('.custom_fabric_type input').val();
+		//size and Quantity
+		params_savesettingsdata['size_quantity'] = jQuery('.custom_size_quantity input').val();
+		params_savesettingsdata['lady_size_quantity'] = jQuery('.custom_lady_size_quantity input').val();
+		params_savesettingsdata['youth_size_quantity'] = jQuery('.custom_youth_size_quantity input').val();
+		//cart
+		params_savesettingsdata['variation_id'] = jQuery('.variation_id').val();
+		params_savesettingsdata['product_id'] = jQuery('.woocommerce-variation-add-to-cart input[name=product_id]').val();
+		params_savesettingsdata['product_price'] = jQuery('.product-options-price dd:nth-child(4) span.amount').text();
+		params_savesettingsdata['quantity'] = jQuery('input[name=quantity]').val();
+
+			setTimeout(function(){
+
+			var element = document.getElementById("item");
+
+			html2canvas(element).then(function(canvas) {
+			    // Export the canvas to its data URI representation
+			    var base64image = canvas.toDataURL("image/png");
+
+			    // Open the image in a new window
+			    //jQuery('.actionA').prepend("<img style='width:110px; margin:0 auto 20px auto; ' src="+base64image+">");	    
+			   // params_savesettingsdata['currentDesign'] = base64image ;
+			 var currentDesign = base64image ;			 
+			    jQuery.ajax({
+					url : '<?php echo admin_url("admin-ajax.php"); ?>',
+					type: "POST",
+					dataType: "text",
+					data :{
+							action:'savesettingsdata',
+							setting_varietiondata : params_savesettingsdata,
+							//canvas_data_custom: JSON.stringify(json_data),
+							canvas_data_custom: json_data,
+							canvas_data_custom_2: json_data_2,
+							currentDesign : currentDesign
+					}, 
+					type: 'post',
+					success : function( result ) {
+					if(result){
+							clearInterval(interval);
+							jQuery('.save').html('Design Saved !');
+
+							setTimeout(function(){
+								jQuery('.save').html('Save Again');
+							},2000)
+						
+							 jQuery('.setting_status_message').text('Sucess ! Your settings has been Saved !!!').css('background','#4aec9b').show(0).delay(6000).hide(0);
+						}else{
+							 jQuery('.setting_status_message').text('Sorry ! No active user find. Please Sign In').css('background','#e41a1a').show(0).delay(6000).hide(0);
+						}
+					}
+				});
+			});
+			},500);	
+		
+		
+});
+
+var allData ;
+
+jQuery('.restore_savedata').on('click',function(){
+
+	jQuery(this).html('<span>Loading...</span>');
+	
+
+	var product_id = '<?php echo get_the_ID();?>';
+	jQuery( ".cross" ).trigger( "click" );
+	jQuery.post("<?php echo admin_url('admin-ajax.php'); ?>", {
+			'action': 'savesettingsdata_show',
+			'product_id' : product_id
+			}, 
+			function(rsp){
+				jQuery('.restorenow').text(' Restore design');
+				jQuery('html, body').animate({
+			        scrollTop: jQuery('header').height()
+			      }, 800);
+
+				allData = rsp.raw;
+				jQuery('.restore_savedata').html('Restore Design')
+				//jQuery( "#live-view" ).hide();
+				jQuery('body').addClass('showRestore');
+				
+				jQuery( ".restorePop .contentA" ).html(rsp.response);
+				//jQuery( ".customize" ).html(rsp.response);
+
+
+				// showing the saved image
+
+				let currenDesign = allData.currentDesign;
+				jQuery('.actionA').prepend("<div class='imgW'><img style='width:203px; margin:0 auto 20px auto; ' src="+currenDesign+"></div>");	
+
+			}
+	);
+});
+
+function restorePrice(){
+	let price = allData.product_price.split('$');
+	jQuery('.price-area .sign').html(price[0]);
+	jQuery('.price-area .custom_price').html(price[1]).attr('data-total',price[1]);
+}
+
+
+jQuery(document).on('click','.closePopBtn',function(){
+	jQuery('body').removeClass('showRestore');	
+	jQuery( ".restorePop .contentA" ).html('');			
+});
+
+jQuery(document).on('click','.restorePopBg',function(){
+	jQuery('body').removeClass('showRestore');	
+	jQuery( ".restorePop .contentA" ).html('');			
+});
+
+jQuery(document).on('click', '.restorenow' ,function(){
+	//alert(allData.category.toLowerCase())
+	jQuery(this).text('Restoring...')
+	let cat = allData.category.toLowerCase().replace(' ','-');
+	let design = allData.design;	
+	jQuery('body').addClass('data_restored');
+
+	if(cat != ''){
+		setCat(cat);
+	}
+	if(design != ''){ 
+		setdesign(design);
+	}
+
+	
+});
+
+
+function setFormData(argument) {
+
+	let user_file = "user-file";
+	let user_file_back = "user-file-back";
+	let user_file_lsleeve = "user-file-lsleeve";
+	let user_file_rsleeve = "user-file-rsleeve";
+
+	if(allData.main_body != '') { jQuery('.custom_main_body input').val(allData.main_body); }
+	if(allData.side_body != '') { jQuery('.custom_side_body input').val(allData.side_body); }
+	if(allData.collar != '') { jQuery('.custom_collar input').val(allData.collar); }
+	if(allData.body_upper != '') { jQuery('.custom_body_upper input').val(allData.body_upper); }
+	if(allData.body_lower != '') { jQuery('.custom_body_lower input').val(allData.body_lower); }
+	if(allData.zigzag1 != '') { jQuery('.custom_zigzag1 input').val(allData.zigzag1); }
+	if(allData.zigzag2 != '') { jQuery('.custom_zigzag2 input').val(allData.zigzag2); }
+	if(allData.zigzag3 != '') { jQuery('.custom_zigzag3 input').val(allData.zigzag3); }
+	if(allData.string != '') { jQuery('.custom_string input').val(allData.string); }
+	if(allData.elastic != '') { jQuery('.custom_elastic input').val(allData.elastic); }
+	if(allData.sleeve_by_color != '') { jQuery('.custom_sleeve_by_color input').val(allData.sleeve_by_color); }
+	if(allData.plaket_inner != '') { jQuery('.custom_plaket_inner input').val(allData.plaket_inner); }
+	if(allData.collar_by_color != '') { jQuery('.custom_collar_by_color input').val(allData.collar_by_color); }
+	if(allData.button != '') { jQuery('.custom_button input').val(allData.button); }
+	if(allData[user_file] != '') { jQuery('.custom_user-file input').val(allData[user_file]); }
+	if(allData[user_file_back] != '') { jQuery('.custom_user-file-back input').val(allData[user_file_back]); }
+	if(allData[user_file_lsleeve] != '') { jQuery('.custom_user-file-lsleeve input').val(allData[user_file_lsleeve]); }
+	if(allData[user_file_rsleeve] != '') { jQuery('.custom_user-file-rsleeve input').val(allData[user_file_rsleeve]); }
+	if(allData.front_name != '') { jQuery('.custom_front_name input').val(allData.front_name); }
+	if(allData.front_name_style != '') { jQuery('.custom_front_name_style input').val(allData.front_name_style); }
+	if(allData.front_name_color != '') { jQuery('.custom_front_name_color input').val(allData.front_name_color); }
+	if(allData.back_name != '') { jQuery('.custom_back_name input').val(allData.back_name); }
+	if(allData.back_name_style != '') { jQuery('.custom_back_name_style input').val(allData.back_name_style); }
+	if(allData.back_name_color != '') { jQuery('.custom_back_name_color input').val(allData.back_name_color); }
+	if(allData.fabric_type != '') { jQuery('.custom_fabric_type input').val(allData.fabric_type); }
+	if(allData.size_quantity != '') { jQuery('.custom_size_quantity input').val(allData.size_quantity); }
+	if(allData.lady_size_quantity != '') { jQuery('.custom_lady_size_quantity input').val(allData.lady_size_quantity); }
+	if(allData.youth_size_quantity != '') { jQuery('.custom_youth_size_quantity input').val(allData.youth_size_quantity); }
+	if(allData.variation_id != '') { jQuery('.variation_id').val(allData.variation_id); }
+	if(allData.product_id != '') { jQuery('.woocommerce-variation-add-to-cart input[name=product_id]').val(allData.product_id); }
+	if(allData.product_price != '') { jQuery('.product-options-price dd:nth-child(4) span.amount').text(allData.product_price); }
+	if(allData.quantity != '') { jQuery('input[name=quantity]').val(allData.quantity); }
+
+	setFormImages();
+
+	
+} 
+
+
+function setFormImages(){
+	var uesr_file = 'user-file';
+	let uesr_file_back = 'user-file-back';
+	let uesr_file_lsleeve = 'user-file-lsleeve';
+	let uesr_file_rsleeve = 'user-file-rsleeve';
+
+
+
+	if(allData[uesr_file] !=''){
+		var imgList = allData[uesr_file].split(',');
+		for(i=0;i<imgList.length;i++){
+
+			var image_html = '<li><a href="#" data-val="724"><img data-logo-price="12" data-logo-name="f724" class="img-polaroid" src="'+ imgList[i] +'" alt="#"></a> <span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></span></li>';
+			jQuery('.custom-logo-list').append(image_html);
+		}
+	}
+
+	if(allData[uesr_file_back] !=''){
+		var imgList = allData[uesr_file_back].split(',');
+		for(i=0;i<imgList.length;i++){
+
+			var image_html = '<li><a href="#" data-val="724"><img data-logo-price="12" data-logo-name="f724" class="img-polaroid" src="'+ imgList[i] +'" alt="#"></a> <span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></span></li>';
+			jQuery('.custom-logo-list-back').append(image_html);
+		}
+	}
+
+	if(allData[uesr_file_lsleeve] !=''){
+		var imgList = allData[uesr_file_lsleeve].split(',');
+		for(i=0;i<imgList.length;i++){
+
+			var image_html = '<li><a href="#" data-val="724"><img data-logo-price="12" data-logo-name="f724" class="img-polaroid" src="'+ imgList[i] +'" alt="#"></a> <span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></span></li>';
+			jQuery('.custom-logo-list-Lsleeve').append(image_html);
+		}
+	}
+
+	if(allData[uesr_file_rsleeve] !=''){
+		var imgList = allData[uesr_file_rsleeve].split(',');
+		for(i=0;i<imgList.length;i++){
+
+			var image_html = '<li><a href="#" data-val="724"><img data-logo-price="12" data-logo-name="f724" class="img-polaroid" src="'+ imgList[i] +'" alt="#"></a> <span class="cross-img"><img src="http://onlinedevserver.biz/dev/breelyn-store/wp-content/themes/breelyn-theme/customproducts/images/cross.png" alt="#"></span></li>';
+			jQuery('.custom-logo-list-Rsleeve').append(image_html);
+		}
+	}
+
+
+	setCanvas();
+
+}
+
+
+function setCanvas(){
+
+	var frontJson = JSON.parse(allData.canvas_design_1);
+	var backJson = JSON.parse(allData.canvas_design_2);
+
+	canvas.loadFromJSON(frontJson, function() {		
+	    canvas.renderAll();
+	});
+	canvas1.loadFromJSON(backJson, function() {
+	    canvas1.renderAll();
+	});
+
+
+	
+	
+	setFabric();
+	
+
+}
+
+function setFabric(){	
+
+	jQuery('.fabric-section div:visible' ).find('select').val(allData.fabric_type);
+
+	doneRestore();
+
+}
+
+function showToolTop(argument) {
+	jQuery('.tooltips').addClass('opens');
+	setTimeout(function (argument) {
+		jQuery('.tooltips').removeClass('opens');
+	},10000)
+}
+
+
+
+function setCat(cat){
+
+	jQuery('.eachcat').each(function(){
+		
+		if(jQuery(this).attr('data-slug') == cat){ 
+			jQuery(this).find('a').click(); 
+		} 
+	});
+}
+function setdesign(design){
+
+	var intval = setInterval(function (argument) {
+		if(jQuery(document).find('.design-list li').length > 0){
+			readyDesign(design);
+			clearInterval(intval)
+		}
+	},100)	
+}
+function readyDesign(design) {
+	jQuery(document).find('.design-list li').each(function(){ 			
+			if(jQuery(this).attr('data-imagename') == design){ 
+				jQuery(this).find('a').click(); 
+
+				restoreColors( jQuery(this).attr('data-layers-name'));
+				
+			} 
+		});
+}
+
+
+function restoreColors(data_layer_names) {
+	
+	jQuery(document).find('.cuscolorpicker script').remove();
+	
+	var data_layer_name_arrays = data_layer_names.toLowerCase().split(' ').join('_').split(',');
+	
+	setTimeout(function(){
+	for (var i =1; i <= data_layer_name_arrays.length; i++){
+		
+		var custom_field_name = data_layer_name_arrays[i-1];		
+		var color_name = allData[custom_field_name];
+
+		//if(color_name == ''){ color_name = "#ffffff" };
+
+		 jQuery('.cuscolorpicker').append('<script>jQuery(".colorPickSelector'+i+'").colorPick({"allowRecent": false,"initialColor": "'+ color_name +'","onColorSelected":function() { var color =this.color;jQuery("#cp'+i+'_getcolor").val(color);jQuery(".custom_'+custom_field_name+' .custom-options").val(color).focus().focusout();this.element.css({"backgroundColor": this.color, "color": this.color}); jQuery(".target-image'+i+'").each(function () {this.src = changeIconColor(this, color, "1");});}});<\/script>');
+		
+		}
+	},200);	
+
+	setFormData();
+	
+	
+	
+}
+
+
+function doneRestore(argument) {
+	// restoring price
+	restorePrice(); 
+	//setTimeout(function(){ jQuery(document).find('#categories a').click(); },100);
+	jQuery('.restorenow').text(' Restore done!');
+	jQuery('body').removeClass('showRestore')
+	jQuery('.restore_savedata').text('Restore done!').attr('disabled',true);
+	jQuery('body').removeClass('data_restored');	
+}
+
+// delete item on key pres
+
+jQuery('html').keyup(function(e){
+    if(e.keyCode == 46) {        
+        if(canvas.getActiveObject()) { canvas.getActiveObject().remove(); }
+        if(canvas1.getActiveObject()) { canvas1.getActiveObject().remove(); }
+    }
+});

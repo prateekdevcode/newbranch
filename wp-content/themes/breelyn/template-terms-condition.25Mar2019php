@@ -1,0 +1,153 @@
+<?php
+/**
+ * The template for displaying full width pages.
+ *
+ * Template Name: Terms and Condition
+ *
+ * @package storefront
+ */
+
+get_header(); ?>
+
+	<section id="descliamer" class="common-padding">
+		<div class="container">
+			<div class="title-section custom-heading">
+				<h1><span><?php wp_title(''); ?></span></h1>
+			</div>
+			<div class="desc-content clearfix">
+				<div class="col-md-12 center">
+					<p>Welcome to Breelyn Uniforms website (Site). Please read these terms and conditions carefully, which governs your use of the Site. When you commence to use the website, you agree to be bound by these terms and conditions.</p>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>General</h3>
+					</div>
+					<div class="inner-content">
+						<p>In this Terms and Conditions, “we”, “us” or “our” refer to Breelyn Uniforms, ABN 12 099 733 543, 15/33 Holbeche Road, Arndell Park NSW 2148 Australia.</p>
+
+						<p>We may from time to time change the terms that govern your use of our Site. Your use of our site following any change of terms constitutes your agreement to follow and be bound by the terms as changed. We may also change, move or delete portions of, or may add to, our Site from time to time.</p>
+					</div>
+				</div>
+
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Intellectual Property</h3>
+					</div>
+					<div class="inner-content">
+						<p>The intellectual property rights in all software and content made available to you on or through this Site remain our property or that of our licensors and are protected by intellectual property laws and treaties around the world. All such rights are reserved by us and our licensors. You may store, print and display the content supplied solely for your own personal use. You are not permitted to publish, manipulate, distribute or otherwise reproduce, in any format, any of the content or copies of the content supplied to you or which appears on this Site nor may you use any such content in connection with any business or commercial enterprise.</p>
+					</div>
+				</div>
+
+
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Viruses</h3>
+					</div>
+					<div class="inner-content">
+						<p>Although we takes due care, we cannot guarantee that any file or program available for download execution from or via this site is free from viruses or other conditions which could damage or interfere with data, hardware or software with which it might be used. You assume all the risk of use of all programs and files on this site, and you release us entirely of all responsibility for any consequence of its use.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Third Party Sites</h3>
+					</div>
+					<div class="inner-content">
+						<p>This site may contain links to third party sites. Breelyn Uniforms is not under responsibility for condition or contents of those sites as they are not under our control. You access those sites and/or use the sites, products and services solely at your risk. The links are provided solely for your convenience and do not indicate, express or imply, an endorsement by Breelyn Uniforms of the sites or the products or services provided on the site. Breelyn Uniforms does not permit any linkages to this site without prior permission.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Applicable Law</h3>
+					</div>
+					<div class="inner-content">
+						<p>This site is controlled by Breelyn Uniforms. Your use of this site is governed by, construed and enforced in accordance with the laws of New South Wales, Australia. Disputes arising from your use of this site are exclusively subject to the jurisdiction of the Courts of New South Wales, Australia. This site may be accessed throughout Australia and overseas. Breelyn Uniforms makes no representations that the content of this site complies with the laws (including Intellectual Property laws) of any country outside Australia. If you access this site from outside Australia, you do so at your own risk and are responsible for complying with the laws in the place where you access this site.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Technical Requirements</h3>
+					</div>
+					<div class="inner-content">
+						<p>To use this website may require both Java Script and Session Cookies to be enabled in your web browser.</p>
+
+						<p>Cookies are mainly used to keep track of the products searched within the website. We do not and cannot use cookies to retrieve personal or company information about you from your computer unless such information was knowingly and willingly provided by you.</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Disclaimer</h3>
+					</div>
+					<div class="inner-content">
+						<p>You agree that your access to, and use of, this site is subject to the terms and applicable laws, and is at your own risk.</p>
+
+						<p>This site and its contents may contain errors, faults and inaccuracies and may not be complete and current. Breelyn Uniforms reserves the right to correct any errors, inaccuracies or omissions and to change or update information at any time without prior notice. We regret any inconvenience this may cause you. Breelyn Uniforms makes no representations or warranties of any kind, express or implied as to the operation of this site or the information, content, materials or products included on this site, except as otherwise provided under applicable laws. Neither Breelyn Uniforms nor its affiliates, directors, employees, agents, contractors, successors or assigns will be liable for any damages whatsoever arising out of, or in any way related to, the use of this site and any other site linked to this site. This limitation applies to direct, indirect, consequential, special, punitive, or other damages you or others may suffer, as well as damages for loss of profits, business interruption or the loss of data or information.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Product Pricing</h3>
+					</div>
+					<div class="inner-content">
+						<p>All product prices in the Site are based on different Quantity Group, specific Logo Services, in Australian currency (AUD) and exclude Goods and Services Tax (GST). You can view all prices in the Site after your <a href="http://corporateuniform.net.au/my-account/">Registration</a> or <a href="http://corporateuniform.net.au/my-account/">Log In.</a></p>
+
+						<p>For international orders, we will not be held liable for any custom duties，VAT or other taxes charged on your order. International customers are responsible for the custom duties，VAT or other taxes levied by their destination country.</p>
+
+						<p>Breelyn Uniforms reserves the right to eliminate products for sale at any time on the site. We will use all reasonable best efforts to ensure that all products listed are available. Should a product or products become sold out or unavailable for any reason, prior to removal from the site, neither Breelyn Uniforms nor any of its directors, officers, employees or any other representatives will be held liable for damages, replacement or losses as a result of this occurrence.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Enquiry for Quote</h3>
+					</div>
+					<div class="inner-content">
+						<p>First of all, please use the Enquiry Form attached with each product, which will help you to go through your specific requirement and click ‘Submit’ after you finished the Form.</p>
+
+						<p>After received your Enquiry Form, we will prepare a custom Quotation to confirm the Pricing detail. We can also provide Assessment Sample for your product assessment. For condition of sample provision, please refer to our <a href="#">‘Sample and Fitting Services’</a> for detail.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>How to Place an Order</h3>
+					</div>
+					<div class="inner-content">
+						<p>If you like the product, happy with our Quote and would like to place an Order, we will send you Order Form and Payment Form for Order Confirmation. After confirmation of Order and receipt of Order Deposit, we will start to prepare the Artwork or Embroidery Sample. In the meantime, if it is required, we will provide one set of Fitting Samples to help your staff confirm the sizes. For condition of sample provision, please refer to our <a href="#">‘Sample and Fitting Services’</a> for detail.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Privacy Policy</h3>
+					</div>
+					<div class="inner-content">
+						<p>Breelyn Uniforms respects your privacy fully. We will knowingly only use the information given to enhance the shopping experience for our customers, resulting in a more personalized service.</p>
+
+						<p>Any personal information that you submit will be used by us simply to process your orders and to advise you of special offers and new products.</p>
+
+						<p>We may release account information when we believe, in good faith, that such release is reasonably necessary to (i) comply with the law (ii) enforce or apply our agreement or (iii) protect the rights, safety or property of Breelyn Uniforms, our users, or others.</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="header-terms">
+						<h3>Termination</h3>
+					</div>
+					<div class="inner-content">
+						<p>This agreement is effective unless and until terminated by us. We may terminate this agreement at any time without notice, and deny you access to our site if, in our absolute discretion, you fail to comply with any of the terms.</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+<?php
+get_footer();

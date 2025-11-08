@@ -1,0 +1,766 @@
+<?php 
+/*load style on click basedon category/products*/
+add_action('wp_ajax_getselectproductstyle', 'getselectproductstyle_callback');
+add_action('wp_ajax_nopriv_getselectproductstyle', 'getselectproductstyle_callback');
+function getselectproductstyle_callback(){		
+	$cat_slug = $_POST['cat_slug'];		
+	//$args = array( 'post_type' => 'product', 'stock' => 1, 'posts_per_page' => 2,'product_cat' => 'category-slug-name', 'orderby' =>'date','order' => 'ASC' );
+	
+	$args = array( 'post_type' => 'product', 'posts_per_page' => -1, 'product_cat' => $cat_slug, 'orderby' => 'rand' );
+	
+	$loop = new WP_Query( $args );
+	while ( $loop->have_posts() ) : $loop->the_post();
+	global $product; 
+	
+	$rows = get_field('style',$loop->post->ID);
+	if($rows)
+	{
+		$datastyle[] = array('products-id'=>$loop->post->ID,'data-imagename'=>$rows['design_style_name'],'data-price'=>$rows['design_layer_price'],'data-layer'=>$rows['design_layer'],'default'=>$rows['design_layer_name'],'image'=>$rows['design_main_image']);
+	}
+	endwhile;
+	wp_reset_query(); 
+	
+	$data = json_encode($datastyle);
+	echo $data;
+	die();  
+}
+	
+/*Save tshirt custom Images*/
+add_action('wp_ajax_save_custom_tshirt_images', 'save_custom_tshirt_images_callback');
+add_action('wp_ajax_nopriv_save_custom_tshirt_images', 'save_custom_tshirt_images_callback');
+function save_custom_tshirt_images_callback()
+{
+	$data = $_POST['imgdata'];
+	$product_id = $_POST['prod'];
+	
+	$data = substr($data,strpos($data,",")+1);
+	$imagedata = base64_decode($data);
+	$filename = md5(uniqid(rand(), true));
+	//path where you want to upload image
+	$file = $_SERVER['DOCUMENT_ROOT'].'/wp-content/themes/breelyn-theme/custom_image/'.$filename.'.png';
+	$imageurl  = get_stylesheet_directory_uri(). '/custom_image/'.$filename.'.png';
+	file_put_contents($file,$imagedata);
+	$_SESSION['image_url'] = $imageurl;
+	$_SESSION['dimage_url'][$product_id] = $imageurl;
+	
+	echo $imageurl;
+	die();
+}
+	
+/*add products into cart programatically*/
+
+// To add custom data above add to cart button in woocommerce 
+// step 1
+add_action('wp_ajax_wdm_add_user_customizer_data_options', 'wdm_add_user_custom_data_options');
+add_action('wp_ajax_nopriv_wdm_add_user_customizer_data_options', 'wdm_add_user_custom_data_options');
+function wdm_add_user_custom_data_options()
+{
+	//Custom data - Sent Via AJAX post method
+	$product_id = $_POST['pids']; //This is product ID
+	$jsonarray = $_POST['selectedTypeArray'];
+	$quantity = 1;
+	$user_custom_data_values =  $jsonarray[4]['value']; 
+		$_SESSION['cus_price'] = 27;
+	$_SESSION['wdm_user_custom_data'] = $user_custom_data_values;
+	$_SESSION['custm_variation'][$product_id] = array();
+	for($i=0;$i<count($jsonarray);$i++){
+		$indx = $jsonarray[$i]['name'];
+		$_SESSION['custm_variation'][$product_id][$indx] = $jsonarray[$i]['value'];
+	}
+	
+	echo $jsonarray[4]['value'];
+	
+	WC()->cart->add_to_cart( $product_id, $quantity);
+	$items = WC()->cart->get_cart();
+	die();
+	
+}
+	
+add_filter('woocommerce_add_cart_item_data','wdm_add_item_data',1,2);
+
+if(!function_exists('wdm_add_item_data'))
+{
+	function wdm_add_item_data($cart_item_data,$product_id)
+	{
+		
+		$terms = wp_get_post_terms( $product_id, 'product_cat' );
+		
+		foreach ( $terms as $term ) $categories[] = $term->slug;
+		if ( in_array( 'custom-products', $categories ) )
+		{
+			
+			/*Here, We are adding item in WooCommerce session with, wdm_user_custom_data_value name*/
+			global $woocommerce;
+			
+			if (isset($_SESSION['custm_variation'][$product_id])) {
+				foreach ($_SESSION['custm_variation'][$product_id] as $key => $value){
+					
+					$new_value[$key] = $value;
+					
+				}
+			}
+			if(empty($_SESSION['custm_variation'][$product_id]))
+			return $cart_item_data;
+			else
+			{    
+				if(empty($cart_item_data))
+				return $new_value;
+				else
+				return array_merge($cart_item_data,$new_value);
+			}
+			unset($_SESSION['wdm_user_custom_data']); 
+			//Unset our custom session variable, as it is no longer needed.
+			
+		}
+		else{
+			
+			/*other products*/
+			return $cart_item_data;
+			
+		}
+		
+	}
+}
+	
+add_filter('woocommerce_get_cart_item_from_session', 'wdm_get_cart_items_from_session', 1, 3 );
+if(!function_exists('wdm_get_cart_items_from_session'))
+{
+	function wdm_get_cart_items_from_session($item,$values,$key)
+	{
+		$terms = wp_get_post_terms( $item['product_id'], 'product_cat' );
+		
+		foreach ( $terms as $term ) $categories[] = $term->slug;
+		if ( in_array( 'custom-products', $categories ) )
+		{
+			
+			$product_id = $item['product_id'];
+			if(!empty($_SESSION['custm_variation'][$product_id])){
+				foreach ($_SESSION['custm_variation'][$product_id] as $key => $value){
+					
+					if (array_key_exists( $key, $values ) )
+					{
+						$item[$key] = $values[$key];
+					} 
+					
+				}
+			}
+			return $item;
+			
+		}
+		else{
+			
+			/*other products*/
+			
+			return $item;
+			
+		}
+		
+		
+	}
+}
+	
+add_filter('woocommerce_checkout_cart_item_quantity','wdm_add_user_custom_option_from_session_into_cart',1,3);  
+add_filter('woocommerce_cart_item_price','wdm_add_user_custom_option_from_session_into_cart',1,3);
+if(!function_exists('wdm_add_user_custom_option_from_session_into_cart'))
+{
+	function wdm_add_user_custom_option_from_session_into_cart($product_name, $values, $cart_item_key )
+	{
+		$product_id = $values['product_id'];
+		
+		$terms = wp_get_post_terms( $product_id, 'product_cat' );
+		
+		foreach ( $terms as $term ) $categories[] = $term->slug;
+		if(is_array($categories)){
+			if ( in_array( 'custom-products', $categories ) )
+			{
+				
+				
+				/*code to add custom data on Cart & checkout Page*/    
+				if(count($values['custom_data_0']) > 0)
+				{
+					$return_string = $product_name . "</a><dl class='variation'>";
+					$return_string .= "<table class='wdm_options_table' id='" . $values['product_id'] . "'>";
+					
+					foreach ($_SESSION['custm_variation'][$product_id] as $key => $value){
+						$return_string .= "<tr><td> ".$key." : " . $values[$key] . "</td></tr>";
+					}
+					
+					$return_string .= "</table></dl>"; 
+					return $return_string;
+				}
+				else
+				{
+					return $product_name;
+				}
+				
+			}
+		}
+		else{
+			/*other products*/
+			return $product_name;
+			
+		}
+		
+		
+	}
+}
+	
+	
+add_action('woocommerce_add_order_item_meta','wdm_add_values_to_order_item_meta',1,2);
+if(!function_exists('wdm_add_values_to_order_item_meta'))
+{
+	function wdm_add_values_to_order_item_meta($item_id, $values)
+	{
+		
+		
+		
+		$product_id = $values['product_id'];
+		
+		global $woocommerce,$wpdb;
+		foreach ($_SESSION['custm_variation'][$product_id] as $key => $value){
+			$user_custom_values = $values[$key];
+			if(!empty($user_custom_values))
+			{
+				wc_add_order_item_meta($item_id,$key,$user_custom_values);  
+			}
+		}
+		//unset($_SESSION['custm_variation']); 
+		
+		if(isset($_SESSION['dimage_url'])){
+			$meta_key = 'custom_img_url';
+		wc_add_order_item_meta($item_id, $meta_key, $_SESSION['dimage_url'][$product_id]); 
+		//unset($_SESSION['image_url']);
+		}
+	}
+}
+	
+	
+	
+add_action('woocommerce_before_cart_item_quantity_zero','wdm_remove_user_custom_data_options_from_cart',1,1);
+if(!function_exists('wdm_remove_user_custom_data_options_from_cart'))
+{
+	function wdm_remove_user_custom_data_options_from_cart($cart_item_key)
+	{
+		global $woocommerce;
+		// Get cart
+		$cart = $woocommerce->cart->get_cart();
+		// For each item in cart, if item is upsell of deleted product, delete it
+		foreach( $cart as $key => $values)
+		{
+			foreach ($_SESSION['custm_variation'] as $key => $value){
+				if ( $values[$key] == $cart_item_key )
+				unset( $woocommerce->cart->cart_contents[ $key ] );
+			}
+		}
+	}
+}
+	
+	
+	
+	/*remove default imgae from cart add custom image*/
+	
+	//add_filter( 'woocommerce_cart_item_thumbnail', '__return_false' );
+	
+	function custom_new_product_image( $_product_img, $cart_item, $cart_item_key ) {
+		//session_start(); define session in wp-config.php
+			
+		$terms = wp_get_post_terms( $cart_item['product_id'], 'product_cat' );
+		$product_id = $cart_item['product_id'];
+		
+		foreach ( $terms as $term ) $categories[] = $term->slug;
+		if(is_array($categories)){
+			if ( in_array( 'custom-products', $categories ) ) {
+				if(!isset($_SESSION[$cart_item_key])){
+					$_SESSION[$cart_item_key] = $_SESSION['image_url'];
+				}
+				//$newimg = get_stylesheet_directory_uri().'/customizer_images/zigzag/Round_Neck_Shirt.png';
+				
+			$newimg = $_SESSION[$cart_item_key];
+				
+				$a      =   '<img src="'.$newimg.'" />';
+				
+				return $a;
+			}
+		}
+		else{
+			return $_product_img;
+		}
+	}
+	
+	add_filter( 'woocommerce_cart_item_thumbnail', 'custom_new_product_image', 10, 3 );
+	
+	
+	/*end */
+	/*insert custom images into admin panel order*/
+	
+	// overwrite thumbnails of product in order in admin
+	function custom_woocommerce_admin_order_item_thumbnail( $product_get_image_thumbnail_array_title_false, $item_id, $item ) {
+	
+		$terms = wp_get_post_terms( $item['product_id'], 'product_cat' );
+		
+		
+		foreach ( $terms as $term ) $categories[] = $term->slug;
+		
+		if ( in_array( 'custom-products', $categories ) ) {
+			return '<a href="'.wc_get_order_item_meta( $item_id, 'custom_img_url').'" target="blank"><img width="150" height="150" src="'.wc_get_order_item_meta( $item_id, 'custom_img_url').'" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" title=""></a>';	
+		}
+		else{
+			$product      = $item->get_product();
+			$thumbnail    = $product->get_image( 'thumbnail', array( 'title' => 'image' ));
+			return($thumbnail);
+		}
+		
+		unset( $_SESSION['image_url']);
+		$_SESSION['image_url'] = array();
+	}
+	// add the filter
+	add_filter( 'woocommerce_admin_order_item_thumbnail', 'custom_woocommerce_admin_order_item_thumbnail', 10, 3 );
+	
+	/**end**/
+	
+	/*cart price update*/
+	
+
+
+/*ar
+add_action( 'woocommerce_before_calculate_totals', 'add_custom_price' );
+
+function add_custom_price( $cart_object ) {
+			$custom_price = 17; // This will be your custome price  
+   
+			foreach ( $cart_object->cart_contents as $value ) {
+				$terms = wp_get_post_terms( $value['product_id'], 'product_cat' );
+				foreach ( $terms as $term ) {		$categories[] = $term->slug;}
+		
+					if ( in_array( 'custom-products', $categories ) ) {
+						$value['data']->set_price($_SESSION['cus_price']); 
+					}
+			}
+			
+			//unset ($_SESSION['cus_price']);
+}
+ar*/
+
+/*upload logo section*/
+
+add_action( 'wp_ajax_questiondatahtml', 'questiondatahtml_update' );
+add_action( 'wp_ajax_nopriv_questiondatahtml', 'questiondatahtml_update' );
+function questiondatahtml_update() {
+	if( $_FILES ){
+		$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "pdf"); // Supported file types
+		$max_file_size = 1024 * 500; // in kb	
+		$path = $_SERVER['DOCUMENT_ROOT'].'/wp-content/themes/breelyn/customizer_images/user-uploaded-logo/';
+		$name = $_FILES['updoc']['name'];
+		$extension = pathinfo( $name, PATHINFO_EXTENSION );
+		// Generate a randon code for each file name
+		 $new_filename = time() . '.' . $extension;
+		
+		if ( $_FILES['updoc']['error'] == 0 ) {
+			// Check if image size is larger than the allowed file size
+			if ( $_FILES['updoc']['size'] > $max_file_size ) {
+				$arr =array(0,$name." is too large!.");
+				echo json_encode($arr);
+				exit;
+			
+			// Check if the file being uploaded is in the allowed file types
+			} elseif( ! in_array( strtolower( $extension ), $valid_formats ) ){
+			  $arr =array('suc'=>0,'msg'=>$name." is not a valid format");
+				echo json_encode($arr);
+			   exit;
+			
+			} else{ 
+				// If no errors, upload the file...		
+				if(move_uploaded_file($_FILES["updoc"]["tmp_name"], $path.$new_filename)){
+				  $arr =array(1,$new_filename);
+				  echo json_encode($arr);
+				} else {
+					header('HTTP/1.1 500 Internal Server');
+					header('Content-Type: application/json; charset=UTF-8');
+					die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+				}
+			}
+		}
+		else{
+			$arr =array('suc'=>0,'msg'=>"Error Please try again");
+				echo json_encode($arr);
+		}
+          
+    }
+	wp_die();
+}
+
+
+/*upload logo section back*/
+
+add_action( 'wp_ajax_questiondatahtmlback', 'questiondatahtml_update_back' );
+add_action( 'wp_ajax_nopriv_questiondatahtmlback', 'questiondatahtml_update_back' );
+function questiondatahtml_update_back() {
+	
+if( $_FILES ){
+	$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "pdf"); // Supported file types
+    $max_file_size = 1024 * 500; // in kb
+    $path = $_SERVER['DOCUMENT_ROOT'].'/wp-content/themes/breelyn/customizer_images/user-uploaded-logo/';
+	$name = $_FILES['updocback']['name'];
+	$extension = pathinfo( $name, PATHINFO_EXTENSION );
+	// Generate a randon code for each file name
+	$new_filename = time() . '.' . $extension;
+	
+	if ( $_FILES['updocback']['error'] == 0 ) {
+		// Check if image size is larger than the allowed file size
+		if ( $_FILES['updocback']['size'] > $max_file_size ) {
+		$arr =array(0,$name." is too large!.");
+		echo json_encode($arr);
+		exit;
+		
+		// Check if the file being uploaded is in the allowed file types
+		} elseif( ! in_array( strtolower( $extension ), $valid_formats ) ){
+		   $arr =array('suc'=>0,'msg'=>$name." is not a valid format");
+			echo json_encode($arr);
+		   exit;
+		} else{ 
+			// If no errors, upload the file...
+			if( move_uploaded_file( $_FILES["updocback"]["tmp_name"], $path.$new_filename ) ) {			
+			   $arr =array(1,$new_filename);
+				echo json_encode($arr);
+			} else {
+				header('HTTP/1.1 500 Internal Server');
+				header('Content-Type: application/json; charset=UTF-8');
+				die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+			}
+			
+		}
+	}
+	else{
+		$arr =array('suc'=>0,'msg'=>"Error Please try again");
+		echo json_encode($arr);
+	}
+          
+}
+
+wp_die();
+}
+
+
+/*upload logo left section back*/
+
+add_action( 'wp_ajax_questiondatahtmllsleeve', 'questiondatahtmllsleeve_callback' );
+add_action( 'wp_ajax_nopriv_questiondatahtmllsleeve', 'questiondatahtmllsleeve_callback' );
+function questiondatahtmllsleeve_callback() {
+	
+if( $_FILES ){
+
+$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "pdf"); // Supported file types
+    $max_file_size = 1024 * 500; // in kb
+		$path = $_SERVER['DOCUMENT_ROOT'].'/wp-content/themes/breelyn/customizer_images/user-uploaded-logo/';          
+		$name = $_FILES['updocsleeve']['name'];
+		$extension = pathinfo( $name, PATHINFO_EXTENSION );
+		// Generate a randon code for each file name
+		$new_filename = time() . '.' . $extension;                
+		if ( $_FILES['updocsleeve']['error'] == 0 ) {
+			// Check if image size is larger than the allowed file size
+			if ( $_FILES['updocsleeve']['size'] > $max_file_size ) {
+			 $arr =array(0,$name." is too large!.");
+				echo json_encode($arr);
+				exit;
+			
+			// Check if the file being uploaded is in the allowed file types
+			} elseif( ! in_array( strtolower( $extension ), $valid_formats ) ){
+			   $arr =array('suc'=>0,'msg'=>$name." is not a valid format");
+				echo json_encode($arr);
+			   exit;
+			
+			} else{ 
+				// If no errors, upload the file...
+				if( move_uploaded_file( $_FILES["updocsleeve"]["tmp_name"], $path.$new_filename ) ) {                            
+					$arr =array(1,$new_filename);
+					echo json_encode($arr);                     
+				} else {
+					header('HTTP/1.1 500 Internal Server');
+					header('Content-Type: application/json; charset=UTF-8');
+					die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+				}
+
+			}
+		}
+		else{
+			$arr =array('suc'=>0,'msg'=>"Error Please try again");
+				echo json_encode($arr);
+		}
+          
+    }
+
+wp_die();
+}
+
+/*upload logo right section back*/
+
+add_action( 'wp_ajax_questiondatahtmlrsleeve', 'questiondatahtmlrsleeve_callback' );
+add_action( 'wp_ajax_nopriv_questiondatahtmlrsleeve', 'questiondatahtmlrsleeve_callback' );
+function questiondatahtmlrsleeve_callback() {
+	
+if( $_FILES ){
+
+$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "pdf"); // Supported file types
+    $max_file_size = 1024 * 500; // in kb
+    $path = $_SERVER['DOCUMENT_ROOT'].'/wp-content/themes/breelyn/customizer_images/user-uploaded-logo/';
+           
+				$name = $_FILES['updocssleeve']['name'];
+                $extension = pathinfo( $name, PATHINFO_EXTENSION );
+                // Generate a randon code for each file name
+                 $new_filename = time() . '.' . $extension;
+                
+                if ( $_FILES['updocssleeve']['error'] == 0 ) {
+                    // Check if image size is larger than the allowed file size
+                    if ( $_FILES['updocssleeve']['size'] > $max_file_size ) {
+                     $arr =array(0,$name." is too large!.");
+						echo json_encode($arr);
+                        exit;
+                    
+                    // Check if the file being uploaded is in the allowed file types
+                    } elseif( ! in_array( strtolower( $extension ), $valid_formats ) ){
+                       $arr =array('suc'=>0,'msg'=>$name." is not a valid format");
+						echo json_encode($arr);
+                       exit;
+                    
+                    } else{ 
+                        // If no errors, upload the file...
+                        if( move_uploaded_file( $_FILES["updocssleeve"]["tmp_name"], $path.$new_filename ) ) {                           
+                           $arr =array(1,$new_filename);
+							echo json_encode($arr);                     
+                        } else {
+							header('HTTP/1.1 500 Internal Server');
+							header('Content-Type: application/json; charset=UTF-8');
+							die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+						}
+                    }
+                }
+				else{
+					$arr =array('suc'=>0,'msg'=>"Error Please try again");
+						echo json_encode($arr);
+				}
+          
+    }
+
+wp_die();
+}
+
+
+
+
+/**********************************************/
+	/*load style on click basedon category/products*/
+	add_action('wp_ajax_get_varietionidof_product', 'get_varietionidof_product_callback');
+	add_action('wp_ajax_nopriv_get_varietionidof_product', 'get_varietionidof_product_callback');
+	function get_varietionidof_product_callback(){
+		
+		$fst_var = $_POST['fst_var'];
+		$snd_var = $_POST['snd_var'];
+		$product_id = $_POST['product_id'];
+
+	  // Get variations
+        $args = array(
+                     'post_type'     => 'product_variation',
+                     'post_status'   => array( 'private', 'publish' ),
+                     'numberposts'   => -1,
+                     'orderby'       => 'menu_order',
+                     'order'         => 'asc',
+                     'post_parent'   => $product_id
+                 );
+				 
+                 $variations = get_posts( $args ); 
+				 
+			foreach ( $variations as $variation ) {
+			//print_r($variation);
+					$pro_title = explode("-",$variation->post_title);
+					$pro_variection = explode(",",$pro_title[1]);
+				//	echo $pro_variection[0];
+				//	echo $fst_var;
+					
+					
+					if( (trim($pro_variection[0]) ==trim( $fst_var)) && (trim($pro_variection[1]) ==trim($snd_var))){
+						$varietion_id = $variation->ID;
+					}
+					
+
+			 }
+			$response['v_pro_id'] = $varietion_id;
+			wp_send_json($response);
+		exit;
+	}
+	
+/*
+add_action('wp_ajax_wdm_add_user_itemcart_update', 'wdm_add_user_itemcart_update_callback');
+add_action('wp_ajax_nopriv_wdm_add_user_itemcart_update', 'wdm_add_user_itemcart_update_callback');
+function wdm_add_user_itemcart_update_callback(){
+	
+	$products_ids = $_POST['products_ids'];
+	$variation_id = $_POST['variation_id'];
+	$quantity = $_POST['quantity'];
+	 WC()->cart->add_to_cart($products_ids, $quantity, $variation_id );
+
+
+exit;
+}*/
+/* Save Settings*/
+add_action( 'wp_ajax_savesettingsdata', 'savesettingsdata_callback' );
+add_action( 'wp_ajax_nopriv_savesettingsdata', 'savesettingsdata_callback' );
+function savesettingsdata_callback(){
+	$get_selectd_data = $_POST['setting_varietiondata'];	
+	$varietiondata = serialize($_POST['setting_varietiondata']);
+	$canvas_data_custom = $_POST['canvas_data_custom'];
+	$canvas_data_custom_2 = $_POST['canvas_data_custom_2'];
+	$response =  false;
+	global $wpdb;
+	
+	//$imgD = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $get_selectd_data['currentDesign']));	
+	
+	//$_POST['currentDesign'];
+
+	if(is_user_logged_in()){
+		/*****************************/
+		$file_dir = WP_CONTENT_DIR . '/uploads/design_product/';
+		if(!file_exists($file_dir))mkdir($file_dir);
+		$current_user = get_current_user_id();
+		$product_design = $get_selectd_data['product_id'].'_'.$current_user.'_savedata';
+		
+
+		$fullpath = $file_dir.$product_design.'.txt';
+		$fd = fopen($fullpath,"w");
+		fwrite($fd, $_POST['currentDesign']);
+		fclose($fd);
+			/*************************/
+	
+		$asd_insert =  array(
+			'user_id' => $current_user,
+			'product_id' => $get_selectd_data['product_id'],
+			'product_price' => $get_selectd_data['product_price'],
+			'product_quantity' =>  $get_selectd_data['quantity'],
+			'productsaved_data' => $varietiondata,
+			'canvas_data'=> $canvas_data_custom,
+			'canvas_data_2'=> $canvas_data_custom_2,
+			'current_design' => $fullpath,
+		);
+		
+		$wpdb->insert('wp_woo_savedproduct_details',$asd_insert);		
+	
+		$response=  true;
+	}else{		
+		$response =  false;
+	}
+	
+	wp_send_json($response);
+
+	exit;	
+	}
+/*  End Save Settings */
+add_action( 'wp_ajax_savesettingsdata_show', 'savesettingsdata_show_callback' );
+add_action( 'wp_ajax_nopriv_savesettingsdata_show', 'savesettingsdata_show_callback' );
+function savesettingsdata_show_callback(){
+	$current_user = get_current_user_id();	
+	$product_id = $_POST['product_id'];	
+	global $wpdb;
+	$html ='<h2> Saved options </h2><div class="resultant_values" >';
+		//$query = $wpdb->prepare('SELECT * FROM wp_woo_savedproduct_details  WHERE user_id ='.$current_user.' AND product_id = '.$product_id);
+	$query = 'SELECT * FROM wp_woo_savedproduct_details  WHERE user_id ='.$current_user.' AND product_id = '.$product_id.' ORDER BY `wp_woo_savedproduct_details`.`ID` DESC LIMIT 0,1';
+		$result = $wpdb->get_results($query);
+		$variable_value = unserialize($result[0]->productsaved_data);
+		$canvas_data_1 = $result[0]->canvas_data;
+		$canvas_data_2 = $result[0]->canvas_data_2;
+		$currentDesign = $result[0]->current_design;
+	
+		/*****************************/
+		$file_dir = WP_CONTENT_DIR . '/uploads/design_product/';
+		$product_design = $variable_value['product_id'].'_'.$current_user.'_savedata';
+		$fullpath = $file_dir.$product_design.'.txt';
+
+		$variable_value['currentDesign'] = file_get_contents($fullpath);
+		$variable_value['canvas_design_1'] = stripslashes($canvas_data_1);
+		$variable_value['canvas_design_2'] = stripslashes($canvas_data_2);
+		
+		/*************************/
+	
+	
+		$html .='<h6 class="accordion">Category <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p>'.$variable_value['category'].'</p></div>';
+
+		$html .='<h6 class="accordion">Designs <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['design'].'</p></div>';
+
+		$html .='<h6 class="accordion">Main Body Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['main_body'].'</p></div>';
+
+		$html .='<h6 class="accordion">Side Body Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['side_body'].'</p></div>';
+
+		$html .='<h6 class="accordion">Collar Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['collar'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">Body Upper Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['body_upper'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">Body Lower Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['body_lower'].'</p></div>';
+
+		$html .='<h6 class="accordion">zigzag1 Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['zigzag1'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">zigzag2 Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['zigzag2'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">zigzag3 Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['zigzag3'].'</p></div>';
+
+		$html .='<h6 class="accordion">string Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['string'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">elastic Color <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['elastic'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">Favriv Type  <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['fabric_type'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">Product Price <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['product_price'].'</p></div>';
+
+
+		$html .='<h6 class="accordion">Product Quantity <i class="fas fa-angle-down"></i></h6>';
+		$html .='<div class="panel"><p class="">'.$variable_value['quantity'].'</p></div>';
+
+	/*  
+	[] => #FFFFFF
+    [] => #FFFFFF
+    [sleeve_by_color] => 
+    [plaket_inner] => 
+    [collar_by_color] => 
+    [button] => 
+    [user-file] => 
+    [user-file-back] => 
+    [user-file-lsleeve] => 
+    [user-file-rsleeve] => 
+    [front_name] => 
+    [front_name_style] => 
+    [front_name_color] => #FFFFFF
+    [back_name] => 
+    [back_name_style] => 
+    [back_name_color] => #FFFFFF
+    [] => 280gsm 100% Polyester Brushed Fleecy
+    [size_quantity] => 
+    [lady_size_quantity] => 
+    [youth_size_quantity] => 
+    [variation_id] => 1073
+    [product_id] => 1048
+
+    [] => 1*/
+	$html .='</div>';
+	$response['response'] = $html;
+	$response['raw'] = $variable_value;
+	wp_send_json($response);
+	exit;
+}

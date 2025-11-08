@@ -1,0 +1,387 @@
+<?php
+add_action( 'after_setup_theme', 'breelyn_theme_setup' );
+function breelyn_theme_setup(){
+	register_nav_menus(
+		array( 
+			'top-menu' => __( 'Top Menu', 'breelyn-theme' ), 
+			'header-menu' => __( 'Header Menu', 'breelyn-theme' ), 
+			'apparel-menu' => __( 'Apparel Menu', 'breelyn-theme' ), 
+			'customer-service-menu' => __( 'Customer Service Menu', 'breelyn-theme' ), 
+			'about-menu' => __( 'About Menu', 'breelyn-theme' ), 
+			'footer-menu' => __( 'Footer Menu', 'breelyn-theme' ), 
+			'customizer-menu' => __( 'Customizer Menu', 'breelyn-theme' ), 
+		)
+	);
+}
+function breelyn_add_woocommerce_support() {
+  add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'breelyn_add_woocommerce_support' );
+//image swatch ajax functionality
+add_action('wp_ajax_custom_image_swatch_options', 'custom_image_swatch_options_callback');
+add_action('wp_ajax_nopriv_custom_image_swatch_options', 'custom_image_swatch_options_callback');
+function custom_image_swatch_options_callback(){
+    $imgUrl = array();
+	foreach($_POST['attachmentids'] as $attachmentid){
+		$imgUrl[] = wp_get_attachment_url( $attachmentid, 'post-thumbnail' );
+	}
+   echo json_encode($imgUrl);
+   exit;
+}
+//add js files to theme
+function theme_javascripts() {
+	wp_enqueue_script('owl-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/owl.carousel.min.js', array('jquery'), false, true);
+}
+add_action('wp_enqueue_scripts', 'theme_javascripts');	
+//add css files to theme
+function theme_styles(){
+	wp_enqueue_style( 'carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css', false );
+	
+}
+add_action('wp_enqueue_scripts', 'theme_styles');
+/**
+ * Note: Do not add any custom code here. Please use a custom plugin so that your customizations aren't lost during updates.
+ * https://github.com/woocommerce/theme-customisations
+ */
+//sb recent products [sb_recent_products product_count="5"]
+function sb_recent_products_shortcode($atts){
+
+    extract( shortcode_atts( array(
+        'product_count' => '',
+      ), $atts ) );
+
+    ob_start(); ?>
+      <section id="catagories" class="catagories-row custom-row">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="catagories-col">
+                <div class="custom-heading">     
+                  <h2> <span> New Arrivals </span> </h2>
+                </div>
+
+                <div id="catagories-slider" class="owl-carousel">
+          <?php
+            $recent = new WP_Query( 
+              array(
+                'post_type' => 'product',
+                'posts_per_page' => $product_count,
+                'orderby' => 'date',
+                'order' => 'desc',
+                'tax_query' => array(
+                  array(
+                      'taxonomy' => 'product_cat',
+                      'field' => 'slug',
+                      'terms' => array( 'custom-products' ),
+                      'operator' => 'NOT IN'
+                      )
+                  )
+                )
+            ); 
+
+            //echo '<pre>';
+            //print_r($recent);
+            //echo '</pre>';
+          ?>
+          <?php while ($recent-> have_posts()) : $recent-> the_post(); ?>
+
+         <div class="item">
+            <div class="pro-img">
+              <?php if( has_post_thumbnail() ){ ?>
+                <img src="<?php echo the_post_thumbnail_url( 'full' ); ?>" class="img-responsive" alt="<?php the_title(); ?>">
+              <?php } ?>
+              <span> <a href="<?php the_permalink(); ?>"> Quick View </a></span>              
+            </div>                 
+          </div>
+
+          <?php endwhile; ?>
+             <?php wp_reset_query(); ?>
+          </div> 
+      </div> 
+      </div>
+    </div>
+  </div>   
+</section>
+<?php return ob_get_clean();
+}
+add_shortcode( 'sb_recent_products', 'sb_recent_products_shortcode' );
+
+
+//sb featured products [sb_featured_products]
+function sb_featured_products_shortcode(){
+     ob_start(); ?>
+      <section id="feature" class="feature-row custom-row">
+      <div class="container">
+      <div class="row">
+      <div class="col-md-12">
+      <div class="catagories-col">
+
+        <div class="custom-heading">     
+        <h2> <span> Featured Products </span> </h2>
+        </div>    
+
+        <div id="feature-slider" class="owl-carousel">
+          <?php
+            $featured_prods = new WP_Query( 
+              array(
+                'post_type' => 'product',
+                      'posts_per_page' => -1,
+                              'tax_query' => array(
+                              array(
+                                  'taxonomy' => 'product_visibility',
+                                  'field'    => 'name',
+                                  'terms'    => 'featured',
+                              ),
+                          )
+                              )
+                            ); 
+
+            //echo '<pre>';
+            //print_r($featured_prods);
+            //echo '</pre>';
+          ?>
+          <?php
+                  while ($featured_prods-> have_posts()) : $featured_prods-> the_post(); 
+              ?>
+          <div class="item">
+
+            <div class="pro-img">
+              <?php if( has_post_thumbnail() ){ ?>
+                <img src="<?php echo the_post_thumbnail_url( 'full' ); ?>" class="img-responsive" alt="<?php the_title(); ?>">
+              <?php } ?>
+              <span> <a href="<?php the_permalink(); ?>"> Quick View </a> </span>
+            </div>
+            <div class="product-details">
+              <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+              <div class="product-reating">
+                <!-- <ul>
+                  <li> <i class="fa fa-star"></i> </li>
+                  <li> <i class="fa fa-star"></i> </li>
+                  <li> <i class="fa fa-star"></i> </li>
+                  <li> <i class="fa fa-star"></i> </li>
+                  <li> <i class="fa fa-star-half-o"></i> </li>
+                </ul> -->
+                <?php global $product; echo wc_get_rating_html( $product->get_average_rating() ); ?>
+              </div>
+              <div class="product-price">
+                <div class="product-price">
+                  <?php  if ( $price_html = $product->get_price_html() ) : ?>
+                    <h6><?php echo $price_html; ?></h6>
+                  <?php endif; ?>
+                </div>
+              </div>
+            </div> 
+
+          </div>
+          <?php endwhile; ?>
+                
+          <?php wp_reset_query(); ?>
+      </div>
+
+      </div> 
+      </div>
+      </div>
+      </div>   
+      </section>
+
+      <?php return ob_get_clean();
+}
+add_shortcode( 'sb_featured_products', 'sb_featured_products_shortcode' );
+
+//CPT for website settings
+add_action( 'init', 'breelyn_home_banner_cpt');
+function breelyn_home_banner_cpt(){
+	register_post_type( 'home-banner',
+	array(
+		'labels' => array(
+			'name' => __( 'Home Banners' ),
+			'singular_name' => __( 'Home Banner' )
+			),
+		'public' => true,
+		'has_archive' => true,
+		'menu_icon' => 'dashicons-format-image',
+		'rewrite' => array('slug' => 'home-banner'),
+		'supports' => array( 'title', 'thumbnail' ),
+		)
+	);
+}
+
+add_action( 'widgets_init', 'breelyn_widget_setup' );
+function breelyn_widget_setup() {
+    register_sidebar( array(
+        'name' => __( 'Blog Sidebar', 'breelyn-theme' ),
+        'id' => 'blog-sidebar',
+        'description' => __( 'Widgets in this area will be shown on all widgets related to Blogs.', 'breelyn-theme' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widgettitle">',
+		'after_title'   => '</h2>',
+    ) );
+
+    register_sidebar( array(
+        'name' => __( 'Shop Sidebar', 'breelyn-theme' ),
+        'id' => 'shop-sidebar',
+        'description' => __( 'Widgets in this area will be shown on all widgets related to Shop.', 'breelyn-theme' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+
+    register_sidebar( array(
+        'name' => __( 'Product Search Sidebar', 'breelyn-theme' ),
+        'id' => 'product-search-sidebar',
+        'description' => __( 'Widget in this area will be used to display search product option.', 'breelyn-theme' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widgettitle">',
+		'after_title'   => '</h2>',
+    ) );
+
+    register_sidebar( array(
+        'name' => __( 'Social Media Sidebar', 'breelyn-theme' ),
+        'id' => 'social-media-sidebar',
+        'description' => __( 'Widget in this area will be used to display social media icons.', 'breelyn-theme' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h2 class="widgettitle">',
+    'after_title'   => '</h2>',
+    ) );
+
+}
+
+include_once('customizer_extra_function/custom_function.php');
+
+//testimonial CPT
+add_action( 'init', 'breelyn_testimonials_cpt');
+function breelyn_testimonials_cpt(){
+  register_post_type( 'client-testimonials',
+  array(
+    'labels' => array(
+      'name' => __( 'Testimonials' ),
+      'singular_name' => __( 'Testimonial' )
+      ),
+    'public' => true,
+    'has_archive' => true,
+    'menu_icon' => 'dashicons-format-status',
+    'rewrite' => array('slug' => 'client-testimonials'),
+    'supports' => array( 'title', 'editor' ),
+    )
+  );
+}
+
+/* Woo customize ordering in single page  */
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+//add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 40 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 20 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta_remove_category', 10 );
+
+function woocommerce_template_single_meta_remove_category(){    
+global $post, $product;
+$cat_count = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
+$tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
+
+?>
+<div class="product_meta">
+  <?php do_action( 'woocommerce_product_meta_start' ); ?>
+  <?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
+    <span class="sku_wrapper">( <?php _e( 'Product Code :', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span> )</span>
+  <?php endif; ?>
+  <?php do_action( 'woocommerce_product_meta_end' ); ?>
+</div>
+<?php
+}
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 60 );
+/**
+ * Add the custom tab
+ */
+function my_simple_custom_product_tab( $tabs ) {
+	$tabs['size_chart'] = array(
+		'title'    => __( 'Size Chart', 'size-chart' ),
+		'callback' => 'woocommerce_template_single_excerpt',
+		'priority' => 40,
+	);
+	$tabs['my_custom_tab'] = array(
+		'title'    => __( 'SHIPPING & RETURN', 'shipping-and-return' ),
+		'callback' => 'my_simple_custom_tab_content',
+		'priority' => 50,
+	);
+	
+	return $tabs;
+}
+add_filter( 'woocommerce_product_tabs', 'my_simple_custom_product_tab' );
+
+
+/**
+ * Function that displays output for the shipping tab.
+ */
+function my_simple_custom_tab_content( $slug, $tab ) {
+	?><h2><?php echo wp_kses_post( $tab['title'] ); ?></h2>
+	<div class="termpara">
+<p><strong><span style="text-decoration: underline;">Production Time Guide </span></strong></p>
+<p><strong>Embroidery: </strong></p>
+<p>Embroidery Sample Preparation: ~ 5 working days from Order Confirmation and Deposit (If applicable)</p>
+<p>Production: 7-10 Working Days from Order Confirmation and Embroidery Sample Approval.</p>
+<p><strong>Screen Printing</strong>:</p>
+<p>Screen Printing Artwork Preparation: ~ 3 Working Days from provision of Artwork (Vector format artwork such as AI, PDF), Order Confirmation and Deposit (If applicable).</p>
+<p>Production: 7-10 Working Days from Order Confirmation and Artwork Approval.</p>
+<p><strong>Sublimation</strong>:</p>
+<p>Sublimation Product Sample: ~10 working days from Order Confirmation, Artwork Approval and Deposit (If applicable)</p>
+<p>Production: 4-5 weeks from Order Confirmation and Product Sample Approval.</p>
+<p>We are capable to handle urgent orders. You are welcome to enquire with detail requirement by email: <a href="mailto:sales@breelynunifroms.cm.au">sales@breelynunifroms.cm.au</a> or phone: 1300 786 168.</p>
+<p><strong><span style="text-decoration: underline;">Delivery Guide </span></strong></p>
+<p>Breelyn Uniforms uses Courier, Australia Express Post to deliver your order.</p>
+<p>Delivery within Australia can normally be expected within 2 to 10 days for product without ornamental service (depending on the location).</p>
+<p><strong><span style="text-decoration: underline;">Freight Guide</span></strong></p>
+<p>– Sydney Metro Area: For all orders over a value of $500+GST, free delivery to one delivery point.</p>
+<p>– Other Capital Cities: For all orders over a value of $1000+GST, free delivery to one delivery point.</p>
+<p>– Country, Outback and Northern Territory: Please enquire for a quote by phone: 1300 786 168 or email: sales@breelynunifroms.cm.au.</p>
+<p><strong>Full Freight is payable if order value under the stated amount. </strong></p>
+<p><strong><span style="text-decoration: underline;">Return &amp; Claims</span></strong></p>
+<p>All return goods must be authorized by Breelyn Uniforms and may incur re-stocking fee if it is not attributed to the fault of the Company. All claims must be filed within 14 days of invoice date and must refer to official invoice number and date, and state the reason for the claim. The goods must be returned within 14 days from a claim is authorized. Items returned must be in resalable condition. The freight for forwarding and any discount on bulk quantity may be deducted from Credit on the returned items.</p>
+<p>We will not accept return or exchange of items already decorated. We will not accept return or exchange of items that custom made or produced through indent.</p>
+<p>If any stock items not decorated or supplied in line with the Order due to our fault, we will replace the stock as soon as we can.</p>
+<p>Normal Wear and Tear will not be considered as fault of a product.</p>
+</div><?php 
+}
+
+add_filter( 'woocommerce_product_tabs', 'bbloomer_remove_product_tabs', 98 );
+ 
+function bbloomer_remove_product_tabs( $tabs ) {
+    unset( $tabs['additional_information'] ); 
+    return $tabs;
+}
+
+
+add_filter('woocommerce_catalog_orderby', 'wc_customize_product_sorting');
+
+function wc_customize_product_sorting($sorting_options){
+    $sorting_options = array(
+        'menu_order' => __( 'Sorting', 'woocommerce' ),
+        'popularity' => __( 'Best Selling', 'woocommerce' ),
+        'rating'     => __( 'Sort by average rating', 'woocommerce' ),
+        'title'     => __( 'Name, A-Z', 'woocommerce' ),
+        'title-desc'     => __( 'Name, Z-A', 'woocommerce' ),
+        'date-desc'       => __( 'Date, Date, New To Old', 'woocommerce' ),
+        'date'       => __( 'Date, Old To New', 'woocommerce' ),
+        'price'      => __( 'Price, Low To High', 'woocommerce' ),
+        'price-desc' => __( 'Price, High To Low', 'woocommerce' ),
+    );
+
+    return $sorting_options;
+}
+
+add_filter( 'gettext', 'change_woocommerce_return_to_shop_text', 20, 3 );
+function change_woocommerce_return_to_shop_text( $translated_text, $text, $domain ) {
+        switch ( $translated_text ) {
+            case 'Return to shop' :
+                $translated_text = __( 'Continue Shopping', 'woocommerce' );
+                break;
+        }
+
+    return $translated_text;
+}

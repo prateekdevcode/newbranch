@@ -1,0 +1,306 @@
+<?php
+/**
+ * The template for displaying the footer.
+ *
+ * Contains the closing of the #content div and all content after
+ *
+ * @package storefront
+ */
+
+?>
+
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-top clearfix"> 
+                
+                <div class="col-md-3">
+                    <div class="footer-col">
+                        <div class="footer-title"> <h5> Apparel Navigate </h5> </div>
+                        <div class="footer-list">
+                            <?php 
+                                wp_nav_menu( array( 'container' => '', 'menu_class' => '', 'menu_id' => '', 'theme_location' => 'apparel-menu', 'link_before' => '', 'link_after' => '', ));
+                            ?>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-md-3">
+                    <div class="footer-col">
+                        <div class="footer-title"> <h5> Customer Services </h5> </div>
+                        <div class="footer-list">
+                            <?php 
+                                wp_nav_menu( array( 'container' => '', 'menu_class' => '', 'menu_id' => '', 'theme_location' => 'customer-service-menu', 'link_before' => '', 'link_after' => '', ));
+                            ?>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-md-3">
+                    <div class="footer-col">
+                        <div class="footer-title"> <h5> About Breelyn </h5> </div>
+                        <div class="footer-list">
+                            <?php 
+                                wp_nav_menu( array( 'container' => '', 'menu_class' => '', 'menu_id' => '', 'theme_location' => 'about-menu', 'link_before' => '', 'link_after' => '', ));
+                            ?>
+                        </div>
+                    </div>
+  
+                    <div class="footer-col">
+                        <div class="footer-title"> <h5> Connect with us </h5> </div>
+                        <div class="footer-list footer-social-icon">
+                            <?php if( have_rows('social_media_links', 'option') ): ?>
+                              <ul>
+                                <?php while( have_rows('social_media_links', 'option') ): the_row(); ?>
+                                  <li><a href="<?php the_sub_field('social_media_link'); ?>" target="_blank"><?php the_sub_field('social_media_icon'); ?></a></li>
+                                <?php endwhile; ?>
+                              </ul>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-md-3">
+                    <div class="footer-col">
+                        <div class="footer-title"> 
+                            <h5> Breelyn Newsletter </h5>
+                            <p> News, Updates & Special Offers </p>
+                        </div>
+                        <div class="footer-feedback">
+                            <div class="newsletter-box">
+                                <form class="form-inline" action="<?php echo esc_url(home_url()); ?>">
+                                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                                <input type="text" class="form-control newsletter-col" placeholder="Name*" required>
+                                <input type="text" class="form-control newsletter-col" placeholder="Email*" required>
+                                <input type="text" class="form-control newsletter-col" placeholder="Business Name*" required>
+                                <button type="submit" class="btn newsletter-btn">Subscribe</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>   
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-5">
+                    <p> All Rights Reserved by <?php bloginfo( 'name' ); ?>. <?php echo date('Y'); ?> </p>
+                </div>
+                <div class="col-md-6 col-sm-7">
+                    <div class="footer-bottom-right">
+                        <?php 
+                            wp_nav_menu( array( 'container' => '', 'menu_class' => '', 'menu_id' => '', 'theme_location' => 'footer-menu', 'link_before' => '', 'link_after' => '', ));
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+</footer>
+
+<?php wp_footer(); ?>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script>
+	jQuery(document).ready(function(){
+		
+		var skuWrap = jQuery(".sku_wrapper .sku").text();
+		skuWrap = skuWrap.toLowerCase();
+		
+		jQuery('.custom-options.custom_select').change(function(){		
+			jQuery(".gallery_image_main .loader").show();
+			jQuery(".gallery_image_main .image_slider").html("");
+			jQuery(".gallery_image_thumbnail").html("");
+			var attachArr = [];
+			var colorOpt = jQuery(this).val().toLowerCase().split(' ').join('-');
+			console.log("hi",".product_image-data ."+skuWrap+'_'+colorOpt);
+			jQuery.each(jQuery(".product_image-data ."+skuWrap+'_'+colorOpt), function (index, value) { 
+			  attachArr.push(jQuery(value).attr("id")); 
+			});
+			change_image_color_wise(attachArr);
+		});	
+		
+		var owl = jQuery('.owl-carousel');
+		owl.owlCarousel({
+			margin: 10,
+			nav: true,
+			loop: true,
+            items:4,
+            navigation: true,
+            navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+			responsive: {
+			  0: {
+				items: 4
+			  },
+			  600: {
+				items: 4
+			  },
+			  1000: {
+				items: 4
+			  }
+			}
+		});
+	});	
+	
+	function change_image_color_wise(attachmentids){
+		var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+        var owls = jQuery(document).find('.owl-carousel.gallery_image_thumbnail');
+                   
+            owls.owlCarousel({
+                margin: 10,
+                nav: true,
+                loop: true,
+                 navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+                responsive: {
+                  0: {
+                    items: 3
+                  },
+                  600: {
+                    items: 3
+                  },
+                  1000: {
+                    items: 3
+                  }
+                }
+            });
+		//for color swatch on select
+		jQuery.ajax({
+			url: ajaxurl, 
+			type: "POST",
+			dataType: "text",
+			data: {
+				//action name
+				action:'custom_image_swatch_options',
+				attachmentids:attachmentids,
+			},
+
+			//async : false,
+			success: function(data){
+				jQuery(".gallery_image_main .loader").hide();
+				let images = JSON.parse(data);
+				jQuery(".gallery_image_main .image_slider").append('<div class="main_image"><img src="'+images[0]+'" ></div>');
+				jQuery.each(images, function (index, value) {
+				  jQuery(".gallery_image_thumbnail").append('<div class="thumbnail_image item"><img src="'+value+'" ></div>');
+				});
+
+               var findLIst = setInterval(function(){
+                    if(jQuery(document).find('#gallery_image_thumbnail').length > 0){
+                        console.log(jQuery(document).find('.owl-carousel.gallery_image_thumbnail .item').length );
+                        setOwl();
+                        clearInterval(findLIst);
+                    }
+                },100);
+
+                function setOwl(){
+                    var owls = jQuery(document).find('#gallery_image_thumbnail');
+                    owls.owlCarousel({
+                     margin: 10,
+                     nav: true,
+                     loop: true,
+                         navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+                     responsive: {
+                       0: {
+                         items: 3
+                       },
+                       600: {
+                         items: 3
+                       },
+                       1000: {
+                         items: 3
+                       }
+                     }
+                 });
+
+                }
+
+				// setTimeout(function(){ 
+				// 	var owls = jQuery(document).find('.owl-carousel.gallery_image_thumbnail');
+                   
+				// 	owls.owlCarousel({
+				// 		margin: 10,
+				// 		nav: true,
+				// 		loop: true,
+    //                      navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+				// 		responsive: {
+				// 		  0: {
+				// 			items: 3
+				// 		  },
+				// 		  600: {
+				// 			items: 3
+				// 		  },
+				// 		  1000: {
+				// 			items: 3
+				// 		  }
+				// 		}
+				// 	});
+				// }, 2000);
+				
+			}
+		});
+		
+	}
+    jQuery(document).find('.woocommerce-cart .variation dt').each(function(){ jQuery(this).nextUntil('dt').andSelf().wrapAll('<li></li>') });
+
+    jQuery(document).find('.woocommerce-cart .variation li').on('click',function(){
+        jQuery(this).toggleClass('isShow').siblings().removeClass('isShow');
+    });
+</script>
+<style>
+.thumbnail_image {
+    width: 100px;
+    float: left;
+    padding: 5px;
+    margin: 5px;
+}
+.wcvaswatchlabel {
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    border: solid 1px black;
+    line-height: 1.0000;
+}
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+/*.wcvaswatch input:checked +.wcvaswatchlabel {
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+    border: solid 2px black;
+}
+.customswatchinput {
+    display: inline-block;
+    padding-right: 7px;
+    height: 32px;
+}
+.customswatchinput input {
+	margin: 0;
+    padding: 0;
+   
+    -moz-appearance: none;
+    appearance: none;
+}*/
+</style>
+
+
+<script>
+    var containerOff = parseInt(jQuery('#slide-navbar-collapse').offset().left);
+
+    jQuery('#menu-header-menu > li').each(function(){
+        var leftPos = parseInt(jQuery(this).offset().left);
+        var mainL = leftPos - containerOff;
+        jQuery(this).find('> ul').css({'left': '-'+mainL+'px'});
+    });
+    jQuery('#menu-header-menu > li > ul.sub-menu').width(jQuery('#slide-navbar-collapse').width());
+</script>
+</body>
+</html>

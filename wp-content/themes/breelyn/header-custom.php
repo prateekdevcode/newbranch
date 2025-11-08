@@ -1,0 +1,76 @@
+<?php
+	/**
+		* The header for our theme.
+		*
+		* Displays all of the <head> section and everything up till <div id="content">
+		*
+		* @package storefront
+	*/
+	
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable=no, maximum-scale=1.0>
+    <title>Breelyn</title>
+	<link rel="icon" type="images/png" href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/images/favicon.png">
+	
+    <!-- Bootstrap -->
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/common.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/custom.css" rel="stylesheet">
+	<link href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/dyo-template.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/responsive.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/hover.css" rel="stylesheet" media="all">
+	<!--<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css'>-->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css"> -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.6/css/bootstrap-colorpicker.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/colorPick.css">
+    <!-- <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/css/custom-scrollbar.css">  -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+     <?php wp_head(); ?>   
+  </head>
+  <body <?php body_class(); ?>>
+
+  	<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
+
+<header id="customization-header">
+   <div class="header">
+    <div class="container-fluid">
+		<div class="row">	
+			<div class="col-md-1 col-sm-1 col-lg-1">
+			   <div class="row">
+			   	    <div class="logo"> 
+				      <a href="<?php echo esc_url(home_url()); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/customproducts/images/logo.png" alt="logo" /> </a>
+				    </div>
+			   </div>	
+			   
+			</div>
+			<div class="col-md-4 col-sm-4 col-lg-4">
+				<div class="header-top-left">
+				    <ul>
+					 <li> <a href="#"> <i class="fab fa-facebook-f"></i> </a> </li>
+					 <li> <a href="#"> <i class="fab fa-twitter"></i> </a> </li>
+					 <li> <a href="#"> <i class="fab fa-instagram"></i> </a> </li>
+					 <li> <a href="#"> <i class="fab fa-google-plus-g"></i> </a> </li>
+					</ul>
+				</div>
+			</div>
+			  
+			<div class="col-md-4 col-sm-4 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+			   	<div class="header-top-right">  
+					<?php 
+						wp_nav_menu( array( 'container' => '', 'menu_class' => 'menu-top-menu', 'menu_id' => '', 'theme_location' => 'customizer-menu', 'link_before' => '', 'link_after' => '', ));
+					?>
+				</div>
+			</div>
+		</div>
+	</div> 
+   </div>
+</header>

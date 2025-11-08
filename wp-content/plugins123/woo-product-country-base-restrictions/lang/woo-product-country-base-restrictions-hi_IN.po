@@ -1,0 +1,276 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Country Base Restrictions\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-13 07:49+0000\n"
+"PO-Revision-Date: 2020-05-13 07:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: हिन्दी\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.3; wp-5.4.1"
+
+#: woocommerce-product-country-base-restrictions.php:209
+msgid "Product Country Restrictions requires WooCommerce 3.0 or newer"
+msgstr ""
+"उत्पाद देश प्रतिबंधों को WooCommerce 3.0 या नए की आवश्यकता है\n"
+
+#: woocommerce-product-country-base-restrictions.php:225
+msgid ""
+"Save time by applying bulk country restrictions by the product categories, "
+"tags, attributes and shipping classes. Enable and disable payment gateways "
+"by the customer billing or shipping country and more..."
+msgstr ""
+"उत्पाद श्रेणियों, टैग, विशेषताओं और शिपिंग कक्षाओं द्वारा बल्क कंट्री "
+"प्रतिबंध लागू करके समय की बचत करें। ग्राहक बिलिंग या शिपिंग देश और अधिक "
+"द्वारा भुगतान गेटवे सक्षम और अक्षम करें ...\n"
+
+#: woocommerce-product-country-base-restrictions.php:265
+msgid "Country restrictions"
+msgstr ""
+"देश के प्रतिबंध\n"
+
+#: woocommerce-product-country-base-restrictions.php:285
+#: woocommerce-product-country-base-restrictions.php:337
+msgid "Restriction rule"
+msgstr ""
+"प्रतिबंध का नियम\n"
+
+#: woocommerce-product-country-base-restrictions.php:290
+#: woocommerce-product-country-base-restrictions.php:343
+msgid "Product Available for all countries"
+msgstr ""
+"सभी देशों के लिए उपलब्ध उत्पाद\n"
+
+#: woocommerce-product-country-base-restrictions.php:291
+#: woocommerce-product-country-base-restrictions.php:344
+msgid "Product Available for selected countries"
+msgstr ""
+"उत्पाद चयनित देशों के लिए उपलब्ध है\n"
+
+#: woocommerce-product-country-base-restrictions.php:292
+#: woocommerce-product-country-base-restrictions.php:345
+msgid "Product not Available for selected countries"
+msgstr ""
+"उत्पाद चयनित देशों के लिए उपलब्ध नहीं है\n"
+
+#: woocommerce-product-country-base-restrictions.php:305
+#: woocommerce-product-country-base-restrictions.php:358
+msgid "Select countries"
+msgstr ""
+"देशों का चयन करें\n"
+
+#: woocommerce-product-country-base-restrictions.php:320
+msgid "You need to setup shipping locations in WooCommerce settings "
+msgstr ""
+"आपको WooCommerce सेटिंग्स में शिपिंग स्थानों को सेटअप करने की आवश्यकता है"
+
+#: woocommerce-product-country-base-restrictions.php:320
+msgid "HERE"
+msgstr ""
+"यहाँ\n"
+
+#: woocommerce-product-country-base-restrictions.php:320
+msgid "before you can choose country restrictions"
+msgstr ""
+"इससे पहले कि आप देश प्रतिबंधों का चयन कर सकें\n"
+
+#: woocommerce-product-country-base-restrictions.php:479
+msgid "Sorry, this product is not available in your country"
+msgstr ""
+"क्षमा करें, यह उत्पाद आपके देश में उपलब्ध नहीं है\n"
+
+#: include/settings.php:140
+msgid "Debug Mode"
+msgstr ""
+"डिबग मोड\n"
+
+#: include/settings.php:147
+msgid ""
+"Enable this option to show detected geo-location country top of header in "
+"frontend."
+msgstr ""
+"पता लगाने में शीर्ष लेख के शीर्ष भू-स्थान वाले देश को दिखाने के लिए इस "
+"विकल्प को सक्षम करें।\n"
+
+#: include/settings.php:150
+msgid "Force Geo-location detection"
+msgstr ""
+"फोर्स जियो-लोकेशन डिटेक्शन\n"
+
+#: include/settings.php:157
+msgid ""
+"Enable this option to detect the customer country only by the WooCommerce "
+"geo-location and to ignore the customer shipping country (if logged in)"
+msgstr ""
+"इस विकल्प को केवल WooCommerce भू-स्थान द्वारा ग्राहक देश का पता लगाने के लिए "
+"सक्षम करें और ग्राहक शिपिंग देश को अनदेखा करें (यदि लॉग इन है)\n"
+
+#: include/settings.php:173
+msgid "Redirect 404 error page to Shop page"
+msgstr ""
+"404 त्रुटि पृष्ठ को दुकान पृष्ठ पर पुनर्निर्देशित करें\n"
+
+#: include/settings.php:179
+msgid "Enable this option to redirect 404 error page to shop page."
+msgstr ""
+"404 त्रुटि पेज को दुकान पृष्ठ पर पुनर्निर्देशित करने के लिए इस विकल्प को "
+"सक्षम करें।\n"
+
+#: include/settings.php:194 include/settings.php:255
+msgid "Hide Restricted Product Variations"
+msgstr ""
+"प्रतिबंधित उत्पाद विविधताएँ छिपाएँ\n"
+
+#: include/settings.php:201 include/settings.php:262
+msgid ""
+"Enable  this option to hide the restricted product variations form the "
+"product variations selection on variable product page."
+msgstr ""
+"प्रतिबंधित उत्पाद विविधताओं को छिपाने के लिए इस विकल्प को सक्षम करें, चर "
+"उत्पाद पृष्ठ पर उत्पाद विविधताओं का चयन करें।\n"
+
+#: include/settings.php:204
+msgid "Make non-purchasable"
+msgstr ""
+"गैर-क्रय योग्य बनायें\n"
+
+#: include/settings.php:211
+msgid ""
+"Enable this option to make products non-purchasable (i.e. product can't be "
+"added to the cart)."
+msgstr ""
+"उत्पादों को गैर-खरीदने योग्य बनाने के लिए इस विकल्प को सक्षम करें (यानी "
+"उत्पाद को कार्ट में नहीं जोड़ा जा सकता)।\n"
+
+#: include/settings.php:214 include/settings.php:265
+msgid "Restriction Message"
+msgstr ""
+"प्रतिबंध संदेश\n"
+
+#: include/settings.php:215 include/settings.php:266
+msgid ""
+"This message show on product page when product is not purchasable. Default "
+"message : Sorry, this product is not available in your country."
+msgstr ""
+"जब उत्पाद खरीदने योग्य नहीं होता है तो यह संदेश उत्पाद पृष्ठ पर दिखाई देता "
+"है। डिफ़ॉल्ट संदेश: क्षमा करें, यह उत्पाद आपके देश में उपलब्ध नहीं है।\n"
+
+#: include/settings.php:216 include/settings.php:267
+msgid "Sorry, this product is not available in your country."
+msgstr ""
+"क्षमा करें, यह उत्पाद आपके देश में उपलब्ध नहीं है।\n"
+
+#: include/settings.php:223 include/settings.php:274
+msgid "Message Position"
+msgstr ""
+"संदेश की स्थिति\n"
+
+#: include/settings.php:224 include/settings.php:275
+msgid ""
+"Default : After add to cart. This message will show on product page when "
+"product is not purchasable."
+msgstr ""
+"डिफ़ॉल्ट: कार्ट में जोड़ने के बाद। यह संदेश उत्पाद पृष्ठ पर तब दिखाई देगा जब "
+"उत्पाद खरीदने योग्य नहीं होगा।\n"
+
+#: include/settings.php:225 include/settings.php:276
+msgid "Use the shortcode [cbr_message_position] in your product template."
+msgstr ""
+"अपने उत्पाद टेम्पलेट में शोर्ट [cbr_message_position] का उपयोग करें।\n"
+
+#: include/settings.php:232 include/settings.php:283
+msgid "Before title"
+msgstr "शीर्षक से पहले"
+
+#: include/settings.php:233 include/settings.php:284
+msgid "After title"
+msgstr "शीर्षक के बाद"
+
+#: include/settings.php:234 include/settings.php:285
+msgid "After price"
+msgstr ""
+"कीमत के बाद\n"
+
+#: include/settings.php:235 include/settings.php:286
+msgid "After short description"
+msgstr "संक्षिप्त विवरण के बाद"
+
+#: include/settings.php:236 include/settings.php:287
+msgid "After add to cart"
+msgstr ""
+"कार्ट में जोड़ने के बाद\n"
+
+#: include/settings.php:237 include/settings.php:288
+msgid "After meta"
+msgstr ""
+"मेटा के बाद\n"
+
+#: include/settings.php:238 include/settings.php:289
+msgid "After sharing"
+msgstr "शेयर करने के बाद"
+
+#: include/settings.php:290
+msgid "Use Shortcode"
+msgstr ""
+"शोर्ट का उपयोग करें\n"
+
+#: include/views/cbr_setting_tab.php:11
+msgid "General Setting"
+msgstr ""
+"सामान्य सेटिंग\n"
+
+#: include/views/cbr_setting_tab.php:21
+msgid "Catalog Visibility"
+msgstr ""
+"कैटलॉग दृश्यता\n"
+
+#: include/views/cbr_setting_tab.php:31
+msgid "Hide completely"
+msgstr ""
+"पूरी तरह से छिपाओ\n"
+
+#: include/views/cbr_setting_tab.php:37
+msgid ""
+"This option will completely hide restricted products and product variations "
+"from your store (including a direct link)"
+msgstr ""
+"यह विकल्प आपके स्टोर से प्रत्यक्ष रूप से प्रतिबंधित उत्पाद और उत्पाद "
+"विविधताएं छिपाएगा (एक सीधा लिंक सहित)\n"
+
+#: include/views/cbr_setting_tab.php:47
+msgid "Hide catalog visibility"
+msgstr ""
+"सूची दृश्यता छिपाएँ\n"
+
+#: include/views/cbr_setting_tab.php:54
+msgid ""
+"This option will hide restricted products and product variations from your "
+"shop and search results, however these products will still be accessible and "
+"purchasable via direct link."
+msgstr ""
+"यह विकल्प आपकी दुकान और खोज परिणामों से प्रतिबंधित उत्पादों और उत्पाद "
+"विविधताओं को छिपाएगा, हालांकि ये उत्पाद अभी भी प्रत्यक्ष लिंक के माध्यम से "
+"सुलभ और खरीद योग्य होंगे।\n"
+
+#: include/views/cbr_setting_tab.php:64
+msgid "Catalog Visible"
+msgstr ""
+"कैटलॉग दर्शनीय\n"
+
+#: include/views/cbr_setting_tab.php:70
+msgid ""
+"This option will display your products and product variations on the shop "
+"but not purchasable."
+msgstr ""
+"यह विकल्प आपके उत्पादों और उत्पाद विविधताओं को दुकान पर प्रदर्शित करेगा "
+"लेकिन क्रय योग्य नहीं है।\n"
+
+#. Description of the plugin
+msgid "Restrict WooCommerce products in specific countries"
+msgstr ""
+"विशिष्ट देशों में WooCommerce उत्पादों को प्रतिबंधित करें\n"

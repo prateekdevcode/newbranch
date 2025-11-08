@@ -1,0 +1,14 @@
+/*
+ Theme Name:     Divi Child
+ Theme URI: 
+ Description:      Divi Child Theme
+ Author:
+ Author URI:   
+ Template:       Divi
+ Version:        1.0.0
+ License:  
+ License URI:  
+ Tags:  
+ Text Domain: 
+*/
+@keyframes fadein{from{opacity:0}to{opacity:1}}.header-f-wrapper{display:none}@media only screen and (min-width:480px){.header-f-wrapper{z-index:999;position:fixed;width:100%;top:0;}.header-f-wrapper.header-show{display:block}}@media only screen and (min-width:782px){.admin-bar #header-fixed{top:32px}}.et_pb_fullwidth_menu--style-left_aligned .et_pb_menu__logo-wrap,.et_pb_menu--style-left_aligned .et_pb_menu__logo-wrap{width:22%}.et_pb_fullwidth_menu--with-logo .et_pb_menu__menu>nav>ul>li>a:after,.et_pb_menu--with-logo .et_pb_menu__menu>nav>ul>li>a:after{top:41%!important}.et_pb_menu_0_tb_header .et_pb_menu__icon.et_pb_menu__close-search-button,.et_pb_menu_0_tb_header .et_pb_menu__icon.et_pb_menu__search-button{margin-top:-18px}@media only screen and (max-width:1465px){.et_pb_menu_0_tb_header.et_pb_menu .et_pb_menu__logo{margin-right:0!important;width:100%!important}.et_pb_fullwidth_menu--style-left_aligned .et_pb_menu__logo-wrap,.et_pb_menu--style-left_aligned .et_pb_menu__logo-wrap{width:240px}.et_pb_menu_0_tb_header.et_pb_menu .et_pb_menu__logo{margin-right:37px!important}.et_pb_menu_1_tb_header.et_pb_menu .et_pb_menu__logo{margin-right:0!important}.et_pb_menu__wrap{padding-left:36px}.et-menu li{font-size:12px}.et_pb_fullwidth_menu .et-menu>li,.et_pb_menu .et-menu>li{padding-left:0}}.et_pb_menu_1_tb_header.et_pb_menu .et_pb_menu__logo{margin-right:0!important}.equality.et_pb_equal_columns>.et_pb_column{margin-top:auto;margin-bottom:auto}.et_pb_gutters3 .et_pb_column_4_4 .et_pb_blog_grid .column.size-1of3,.et_pb_gutters3.et_pb_row .et_pb_column_4_4 .et_pb_blog_grid .column.size-1of3{width:31.667%;margin-right:1.5%}@media only screen and (max-width:1180px){.et_pb_fullwidth_menu .et-menu>li,.et_pb_menu .et-menu>li{padding-right:5px}.et_pb_menu .et_pb_menu__menu{display:none}.et_mobile_nav_menu{display:block}.et_pb_menu--style-left_aligned .et_pb_menu__wrap{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}}.entry-content ol{padding-bottom:0!important}.et-cart-info{display:none}#calculator-table tr th{padding:9px 5px}#recommended-items span.et_shop_image img{object-fit:cover}.calculator-col div#recommended-items ul li{height:auto}.calculator-col .woocommerce-page.columns-3 ul.products li.product,.woocommerce.columns-3 ul.products li.product{width:45%;max-width:205px}div#faq #faqhead1 h2:before{content:"";background:#78be20;width:58%;height:4px;position:absolute;right:0;top:17px}

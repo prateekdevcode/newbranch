@@ -1,0 +1,94 @@
+{
+    {
+        id:'6DSP011',
+        rules:[
+            {
+                range: '10-24',
+                price: '44.6',
+                symbol: '$'
+            },{
+                range: '25-49',
+                price: '38.5',
+                symbol: '$'
+            },{
+                range: '50-99',
+                price: '35.5',
+                symbol: '$'
+            },{
+                range: '100-249',
+                price: '33',
+                symbol: '$'
+            }
+        ]
+
+    },
+    {
+        id:'6DST011',
+        rules:[
+            {
+                range: '10-24',
+                price: '43.2',
+                symbol: '$'
+            },{
+                range: '25-49',
+                price: '41.00',
+                symbol: '$'
+            },{
+                range: '50-99',
+                price: '38.90',
+                symbol: '$'
+            },{
+                range: '100-249',
+                price: '36.90',
+                symbol: '$'
+            }
+        ]
+
+    },
+     {
+        id:'6DST021',
+        rules:[
+            {
+                range: '10-24',
+                price: '43.2',
+                symbol: '$'
+            },{
+                range: '25-49',
+                price: '41.00',
+                symbol: '$'
+            },{
+                range: '50-99',
+                price: '38.90',
+                symbol: '$'
+            },{
+                range: '100-249',
+                price: '36.90',
+                symbol: '$'
+            }
+        ]
+
+    },
+     {
+        id:'6DSHT011',
+        rules:[
+            {
+                range: '10-24',
+                price: '77.6',
+                symbol: '$'
+            },{
+                range: '25-49',
+                price: '73.6',
+                symbol: '$'
+            },{
+                range: '50-99',
+                price: '69.9',
+                symbol: '$'
+            },{
+                range: '100-249',
+                price: '66.4',
+                symbol: '$'
+            }
+        ]
+
+    }
+}

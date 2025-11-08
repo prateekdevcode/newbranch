@@ -1,0 +1,157 @@
+<?php
+/**
+ * The header for our theme. *
+ * Displays all of the <head> section and everything up till <div id="content"> *
+ * @package storefront
+ */
+?><!doctype html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo( 'charset' ); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<?php wp_head(); ?>
+<link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/custom.css" rel="stylesheet">
+<link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/common.css" rel="stylesheet">
+<link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/font-awesome.css" rel="stylesheet">
+<link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
+</head>
+<body <?php body_class(); ?> id="sitetop">
+<header id="header">
+   <div class="header-top">
+    <div class="container">
+     <div class="row">
+      <div class="col-md-4 col-sm-4">
+       <div class="header-top-left">
+        
+       </div>
+       <div class="header-right-box-mobile pull-right">
+         <div class="header-right-col"> <span> <a href="<?php echo esc_url(home_url('/wishlist')); ?>"><i class="fa fa-heart-o"></i> </a></span> </div>
+         <div class="header-right-col first-mini-cart">
+          <span class="mobile-mini-cart">
+            <a href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your cart' ); ?>"><i class="fa fa-shopping-cart"></i> <span class="cart-count cart_val"><?php echo $woocommerce->cart->cart_contents_count; ?></span> </a>
+
+            <!-- <div class="widget_shopping_cart_content">
+              <?php //woocommerce_mini_cart(); ?>
+            </div> -->
+          </span> 
+         </div>
+         <div class="header-right-col"> <span> <a class="button" href="javascript:void(0)"  data-toggle="modal" data-target="#productsearchModal"><i class="fa fa-search"></i> </a></span> </div>        
+       </div>
+      </div>
+      
+      <div class="col-md-8 col-sm-8">
+       <div class="header-top-right">
+        <?php 
+          wp_nav_menu( array( 'container' => '', 'menu_class' => '', 'menu_id' => '', 'theme_location' => 'top-menu', 'link_before' => '', 'link_after' => '', ));
+        ?>
+       </div>
+      </div>
+
+     </div>
+    </div>
+   </div> 
+   <div class="header-bottom">
+    <div class="container">
+     <div class="row">
+      <div class="col-md-2 col-sm-2">
+       <div class="logo"> 
+        <a href="<?php echo esc_url(home_url()); ?>" title="<?php bloginfo( 'name' ); ?>"><img src="<?php echo get_field('website_logo', '76'); ?>" alt="<?php bloginfo( 'name' ); ?>" /> </a>
+       </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+       <div class="uniform-text">
+        <h4><?php echo get_field('website_main_tagline', '76'); ?></h4>
+        <h5><?php echo get_field('website_sub_tagline', '76'); ?></h5>
+       </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <?php
+          $design_link = get_field('custom_product_design_page', '76');
+          if($design_link){
+        ?>
+        <div class="uniform-btn">
+          <a href="<?php echo $design_link; ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/top-btn.png" alt="uniform button" /> </a>
+        </div>
+        <?php } ?>
+      </div>
+      <div class="col-md-2 col-sm-2">
+       <div class="header-right-box">
+         <div class="header-right-col"> Wishlist <span> <a href="<?php echo esc_url(home_url('/wishlist')); ?>"><i class="fa fa-heart-o"></i> </a></span> </div>
+         <div class="header-right-col second-mini-cart"> Cart / <span class="cart_price"><?php echo WC()->cart->get_cart_total(); ?></span> <span class="cart-bag"> <a href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your cart' ); ?>"><i class="fa fa-shopping-cart"></i> <span class="cart-count cart_val"><?php echo $woocommerce->cart->cart_contents_count; ?></span> </a>
+          </span>
+		  		  
+		  <!--custom mini cart-->
+		  <?php if( !is_cart() && !is_checkout() ){ ?>
+			<div class="widget_shopping_cart_content fade_in">
+			  <?php woocommerce_mini_cart(); ?>
+			</div>
+		  <?php } ?>  
+		  <!--custom mini cart-->
+		  		  
+         </div>
+       </div>
+      </div>
+     </div>
+    </div> 
+   </div>
+
+  <nav id="navbar-main" class="navbar-sticky navbar navbar-default navbar-static-top">
+      <div class="container">
+       <div class="row">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="slide-collapse" data-target="#slide-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="slide-navbar-collapse">
+
+          
+
+          <ul class="nav navbar-nav navbar-right search-right">
+
+            <form role="search" method="get" class="searchform form-inline" action="<?php echo esc_url(home_url('/') ); ?>">
+              <input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search Product &hellip;', 'placeholder', 'estore' ); ?>" value="<?php echo esc_attr( get_search_query() ); ?>" name="s">
+              <input type="hidden" name="post_type" value="product">
+              <button type="submit" class="searchsubmit" name="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'estore' ); ?>"><i class="fa fa-search"></i></button>
+            </form>
+            
+            <div class="sticky-cart third-mini-cart">
+              <span> <a href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your cart' ); ?>"><i class="fa fa-shopping-cart"></i> <span class="cart-count cart_val"><?php echo $woocommerce->cart->cart_contents_count; ?></span> </a>
+              
+              <!-- <div class="widget_shopping_cart_content">
+                <?php //woocommerce_mini_cart(); ?>
+              </div> -->
+
+            </span>
+			
+			<!--custom mini cart-->
+			
+		     <?php if( !is_cart() && !is_checkout() ){ ?>
+			 <div class="sticky-minicart">
+			  <div class="widget_shopping_cart_content fade_in">
+			  <?php woocommerce_mini_cart(); ?>
+			  </div>
+			  </div> 
+		     <?php } ?>  
+			
+		  <!--custom mini cart-->
+			
+			
+            </div>
+
+          </ul>
+         
+        </div><!-- /.navbar-collapse -->
+       </div> 
+       <div class="menu-overlay"></div> 	   
+      </div><!-- /.container-fluid -->
+    </nav>
+  </header>

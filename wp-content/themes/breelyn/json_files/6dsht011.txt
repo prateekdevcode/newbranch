@@ -1,0 +1,8 @@
+{ 
+   "main_body":"#801320",
+   "side_body":"",
+   "collar":"",
+   "pattern_1":"#FFDA00",
+   "pattern_2":"#002B5C",
+   "pattern_3":""    
+}

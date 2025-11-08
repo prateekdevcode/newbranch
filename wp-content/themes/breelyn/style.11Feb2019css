@@ -1,0 +1,82 @@
+/*
+Theme Name:   	Breelyn
+Theme URI:    	http://uniterreneprojects.com/storefront-child-theme
+Author:       	Uniterrene Websoft Pvt Ltd
+Author URI:     http://uniterreneprojects.com
+Template:     	storefront
+Description:  	This is a blank child theme for WooThemes StoreFront theme
+Version:      	1.0.0
+*/
+/*.sub-menu {
+    display: none;
+}
+.menu-item-object-product_cat:hover .sub-menu {
+    display: block;
+}*/
+/*.nav > li{
+	position: inherit !important;
+}*/
+#slide-navbar-collapse{
+	position: relative;
+}
+#menu-header-menu > li > ul.sub-menu a{
+	font-size: 13px;
+    color: #1e1e1e;
+    font-weight: 400;
+}
+#menu-header-menu > li > ul.sub-menu a:hover{
+	    color: #7b402e !important;
+}
+#menu-header-menu > li > ul.sub-menu{
+	position: absolute;
+    width: 1170px;    
+    display: flex;
+    justify-content: space-between;
+    background: #f4f0f1;
+    border-top: 1px solid #f7941d;
+    left: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    transform: translateY(20px);
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    box-shadow: 0px 10px 20px rgba(0,0,0,.2);
+}
+
+
+#menu-header-menu > li > ul.sub-menu> li > a{
+	font-weight: 700;
+    color: #7b402e !important;
+    padding-bottom: 8px;
+    display: block;
+    border-bottom: 1px solid #7b402e;
+    margin-bottom: 5px;
+}
+#menu-header-menu > li:hover > a{
+	    background: #7b402e !important;
+    color: #fff !important;
+}
+#menu-header-menu > li:hover > ul.sub-menu{    
+    height: auto;
+    z-index: 9999999;
+    overflow: auto;
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+}
+#menu-header-menu > li:hover > ul.sub-menu > li {
+    padding: 25px 0 !important;
+}
+#menu-header-menu > li:hover > ul.sub-menu > li:first-child {
+    padding-left: 25px !important;
+}
+#menu-header-menu > li:hover > ul.sub-menu > li:last-child {
+    padding-right: 25px !important;
+}
